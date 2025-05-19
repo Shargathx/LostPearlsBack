@@ -111,8 +111,8 @@ CREATE TABLE "user" (
 );
 
 -- foreign keys
--- Reference: Table_17_location (table: location_image)
-ALTER TABLE location_image ADD CONSTRAINT Table_17_location
+-- Reference: location_image_location (table: location_image)
+ALTER TABLE location_image ADD CONSTRAINT location_image_location
     FOREIGN KEY (location_id)
         REFERENCES location (id)
         NOT DEFERRABLE
@@ -151,16 +151,16 @@ ALTER TABLE hint ADD CONSTRAINT hint_location
             INITIALLY IMMEDIATE
 ;
 
--- Reference: hunt_location (table: game)
-ALTER TABLE game ADD CONSTRAINT hunt_location
+-- Reference: game_location (table: game)
+ALTER TABLE game ADD CONSTRAINT game_location
     FOREIGN KEY (location_id)
         REFERENCES location (id)
         NOT DEFERRABLE
             INITIALLY IMMEDIATE
 ;
 
--- Reference: hunt_user (table: game)
-ALTER TABLE game ADD CONSTRAINT hunt_user
+-- Reference: game_user (table: game)
+ALTER TABLE game ADD CONSTRAINT game_user
     FOREIGN KEY (user_id)
         REFERENCES "user" (id)
         NOT DEFERRABLE

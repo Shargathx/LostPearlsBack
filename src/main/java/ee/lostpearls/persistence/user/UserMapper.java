@@ -1,14 +1,18 @@
 package ee.lostpearls.persistence.user;
 
-import ee.lostpearls.persistence.user.dto.UserDto;
-import org.mapstruct.*;
+import ee.lostpearls.service.LoginResponse;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+
 public interface UserMapper {
-    User toEntity(UserDto userDto);
 
-    UserDto toDto(User user);
+    @Mapping(source = "id", target = "userId")
+    @Mapping(source = "role", target = "roleName")
+    LoginResponse toLoginResponse(User user);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    User partialUpdate(UserDto userDto, @MappingTarget User user);
+
 }

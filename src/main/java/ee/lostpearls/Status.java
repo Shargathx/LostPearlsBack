@@ -8,6 +8,7 @@ public enum Status {
     ONGOING("B"), // user is playing the game?
     COMPLETED("C"); // game is finished and dispalyed in "my locations"?
 
+
     private final String code;
 
     Status(String code) {
