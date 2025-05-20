@@ -1,4 +1,4 @@
-package ee.lostpearls;
+package ee.lostpearls.controller;
 
 import ee.lostpearls.service.LoginResponse;
 import ee.lostpearls.service.LoginService;
