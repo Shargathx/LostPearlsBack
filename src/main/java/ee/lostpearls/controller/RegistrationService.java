@@ -1,7 +1,9 @@
 package ee.lostpearls.controller;
 
+import ee.lostpearls.infrastructure.error.Error;
+import ee.lostpearls.infrastructure.exception.ForbiddenException;
+import ee.lostpearls.persistence.user.UserDto;
 import ee.lostpearls.persistence.user.UserRepository;
-import ee.lostpearls.persistence.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +11,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RegistrationService {
 
-    private final
+    private final UserRepository userRepository;
 
 
     public void addUser(UserDto userDto) {
-        userRepository
+        boolean userExists = userRepository.userExistsBy(userDto.getUsername(), userDto.getEmail());
+        if (userExists) {
+            throw new ForbiddenException(Error.NAME_OR_EMAIL_UNAVAILABLE.getMessage(), Error.NAME_OR_EMAIL_UNAVAILABLE.getErrorCode());
+        }
+
     }
 }

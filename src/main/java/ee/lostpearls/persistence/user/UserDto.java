@@ -9,14 +9,13 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * DTO for {@link ee.lostpearls.persistence.role.Role}
+ * DTO for {@link User}
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleDto implements Serializable {
-    private Integer id;
-    @NotNull
-    @Size(max = 255)
-    private String name;
+public class UserDto implements Serializable {
+    private String username;
+    private String password;
+    private String email;
 }

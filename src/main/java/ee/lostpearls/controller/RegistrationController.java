@@ -1,7 +1,7 @@
 package ee.lostpearls.controller;
 
 import ee.lostpearls.infrastructure.error.ApiError;
-import ee.lostpearls.persistence.user.dto.UserDto;
+import ee.lostpearls.persistence.user.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

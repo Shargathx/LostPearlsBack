@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum Error {
     INCORRECT_CREDENTIALS("Vale kasutajanimi või parool", 111),
     NO_ATM_LOCATIONS_FOUND("Ei leitud ühtegi pangaautomaati", 222),
-    LOCATION_UNAVAILABLE("Selline pangaautomaat juba eksisteerib", 333);
+    LOCATION_UNAVAILABLE("Selline pangaautomaat juba eksisteerib", 333),
+    NAME_OR_EMAIL_UNAVAILABLE("Sellise nime või emailiga kasutaja juba eksisteerib", 101);
 
 
 
