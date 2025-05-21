@@ -1,4 +1,4 @@
-package ee.lostpearls.persistence.role.dto;
+package ee.lostpearls.controller.role;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

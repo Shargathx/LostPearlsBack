@@ -2,9 +2,12 @@ INSERT INTO pearls.role (id, name) VALUES (default, 'admin');
 INSERT INTO pearls.role (id, name) VALUES (default, 'customer');
 
 
-INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUES (1, 1, 'admin', '123', 'admin@admin.com', 'A');
-INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUES (2, 2, 'martin', '123', 'martin@martin.com', 'A');
-INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUES (3, 2, 'mikk', '123', 'mikk@mikk.com', 'D');
+ALTER TABLE pearls."user"
+    ALTER COLUMN role_id SET DEFAULT 2;
+
+INSERT INTO pearls."user" (id, username, password, email, status) VALUES (default, 'admin', '123', 'admin@admin.com', 'A');
+INSERT INTO pearls."user" (id, username, password, email, status) VALUES (default, 'martin', '123', 'martin@martin.com', 'A');
+INSERT INTO pearls."user" (id, username, password, email, status) VALUES (default, 'mikk', '123', 'mikk@mikk.com', 'D');
 
 
 INSERT INTO pearls.county (id, name)

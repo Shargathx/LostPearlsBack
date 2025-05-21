@@ -1,6 +1,6 @@
 package ee.lostpearls.service;
 
-import ee.lostpearls.Status;
+import ee.lostpearls.UserStatus;
 import ee.lostpearls.infrastructure.exception.ForbiddenException;
 import ee.lostpearls.persistence.user.User;
 import ee.lostpearls.persistence.user.UserMapper;
@@ -17,7 +17,7 @@ public class LoginService {
     private final UserMapper userMapper;
 
     public LoginResponse login(String loginName, String password) {
-        User user = userRepository.findUserBy(loginName, loginName, password, Status.ACTIVE.getCode())
+        User user = userRepository.findUserBy(loginName, loginName, password, UserStatus.ACTIVE.getCode())
                 .orElseThrow(() -> new ForbiddenException("Vale kasutajanimi või paroool", 111));
 
         LoginResponse loginResponse = userMapper.toLoginResponse(user);
