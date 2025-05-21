@@ -1,4 +1,4 @@
-package ee.lostpearls.controller;
+package ee.lostpearls.service;
 
 import ee.lostpearls.infrastructure.error.Error;
 import ee.lostpearls.infrastructure.exception.ForbiddenException;
@@ -20,5 +20,6 @@ public class RegistrationService {
             throw new ForbiddenException(Error.NAME_OR_EMAIL_UNAVAILABLE.getMessage(), Error.NAME_OR_EMAIL_UNAVAILABLE.getErrorCode());
         }
 
+        createUser(userDto)
     }
 }

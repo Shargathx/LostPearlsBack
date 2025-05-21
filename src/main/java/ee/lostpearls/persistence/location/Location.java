@@ -61,6 +61,11 @@ public class Location {
     @Column(name = "question", nullable = false, length = 500)
     private String question;
 
+    @Size(max = 500)
+    @NotNull
+    @Column(name = "answer", nullable = false, length = 500)
+    private String answer;
+
     @NotNull
     @Column(name = "date_added", nullable = false)
     private LocalDate dateAdded;
