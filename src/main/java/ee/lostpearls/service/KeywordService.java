@@ -10,6 +10,6 @@ public class KeywordService {
     private final AnswerRepository answerRepository;
 
     public void getAllKeywords() {
-        answerRepository.findKeywordByLocation();
+
     }
 }
