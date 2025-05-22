@@ -1,5 +1,6 @@
 package ee.lostpearls.service;
 
+import ee.lostpearls.infrastructure.exception.ForbiddenException;
 import ee.lostpearls.status.GameStatus;
 import ee.lostpearls.controller.location.dto.LocationDto;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
@@ -32,8 +33,6 @@ public class LocationService {
         County county = countyRepository.findById(locationDto.getCountyId())
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("county Id ", locationDto.getCountyId()));
 
-
-
         location.setUser(user);
         location.setCounty(county);
 
@@ -41,12 +40,25 @@ public class LocationService {
         location.setDateAdded(LocalDate.now());
 
         locationRepository.save(location);
+    }
+
+
+    public LocationDto findLocation(Integer locationId) {
+        Location location = getLocationBy(locationId);
+        LocationDto locationDto = locationMapper.toLocationDto(location);
+        return locationDto;
 
 
     }
 
 
-    public void getLocation(LocationDto locationDto) {
+
+    private Location getLocationBy(Integer locationId) {
+        return locationRepository.findById(locationId)
+                .orElseThrow(() -> new ForbiddenException("locationId", locationId));
+
+
+
 
 
     }

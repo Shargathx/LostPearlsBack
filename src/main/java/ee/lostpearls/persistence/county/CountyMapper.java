@@ -1,4 +1,4 @@
-package ee.lostpearls.persistence.county;
+/*package ee.lostpearls.persistence.county;
 
 import ee.lostpearls.controller.county.dto.CountyInfo;
 import org.mapstruct.*;
@@ -7,6 +7,9 @@ import org.mapstruct.*;
 public interface CountyMapper {
 
 
+    @Mapping(source = "name", target = "countyName")
     CountyInfo toCountyDto(County county);
 
+
 }
+*/

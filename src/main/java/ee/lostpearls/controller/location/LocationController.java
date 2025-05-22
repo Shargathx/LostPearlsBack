@@ -9,10 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +25,14 @@ public class LocationController {
             @ApiResponse(responseCode = "480", description = "Selline asukoht on juba olemas", content = @Content(schema = @Schema(implementation = ApiError.class)))})
     public void addLocation(@RequestParam Integer userId, @RequestBody LocationDto locationDto) {
         locationService.addLocation(userId,locationDto);
+    }
+
+
+
+
+    @GetMapping("/location/{locationId}")
+    public LocationDto findLocation(@PathVariable Integer locationId) {
+        return locationService.findLocation(locationId);
     }
 
 }

@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class LocationDto {
 
+    private String countyName;
     private Integer countyId; // required field
     private String locationName; // required field
     private String longitude; // required field
