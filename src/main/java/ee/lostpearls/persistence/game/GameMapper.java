@@ -12,5 +12,12 @@ public interface GameMapper {
     @Mapping(source = "location.teaser", target = "teaserInfo")
     GameInfo toGameInfo(Game game);
 
-
+    @Mapping(source = "", target = "")
+    @Mapping(source = "", target = "")
+    @Mapping(source = "", target = "")
+    @Mapping(source = "", target = "")
+    @Mapping(source = "", target = "")
+    @Mapping(source = "", target = "")
+    @Mapping(source = "", target = "")
+    Game toGame(GameInfo gameInfo);
 }
