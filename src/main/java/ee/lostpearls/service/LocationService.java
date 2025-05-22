@@ -46,7 +46,8 @@ public class LocationService {
     }
 
 
-    public void getAtmLocation() {
+    public void getLocation(LocationDto locationDto) {
+
 
     }
 

@@ -34,7 +34,7 @@ public class Location {
     @Size(max = 255)
     @NotNull
     @Column(name = "name", nullable = false)
-    private String name;
+    private String locationName;
 
     @Column(name = "long", precision = 18, scale = 15)
     private BigDecimal longField;
