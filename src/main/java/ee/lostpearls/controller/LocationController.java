@@ -12,5 +12,7 @@ public class LocationController {
     private final LocationService locationService;
 
 
-    public void addLocation(@RequestBody LocationDto locationDto)
+    public void addLocation(@RequestBody LocationDto locationDto){
+
+    }
 }

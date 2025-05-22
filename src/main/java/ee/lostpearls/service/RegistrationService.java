@@ -19,7 +19,5 @@ public class RegistrationService {
         if (userExists) {
             throw new ForbiddenException(Error.NAME_OR_EMAIL_UNAVAILABLE.getMessage(), Error.NAME_OR_EMAIL_UNAVAILABLE.getErrorCode());
         }
-
-        createUser(userDto)
     }
 }
