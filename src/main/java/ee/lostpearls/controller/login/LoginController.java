@@ -1,5 +1,6 @@
-package ee.lostpearls.controller;
+package ee.lostpearls.controller.login;
 
+import ee.lostpearls.controller.login.dto.LoginResponse;
 import ee.lostpearls.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

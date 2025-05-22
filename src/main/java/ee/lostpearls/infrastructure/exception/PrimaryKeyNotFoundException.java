@@ -8,8 +8,8 @@ public class PrimaryKeyNotFoundException extends RuntimeException {
     private final Integer errorCode;
 
     public PrimaryKeyNotFoundException(String fieldName, Integer fieldValue) {
-        super("Primary key not found: " + fieldName + "väärtusega: " + fieldValue);
-        this.message = "Primary key not found: '" + fieldName + "'väärtusega: " + fieldValue;
-        this.errorCode = 777;
+        super("Primary key: " + fieldName + "väärtusega: " + fieldValue + " not found!");
+        this.message = "Primary key: '" + fieldName + "'with value: " + fieldValue + " not found!";
+        this.errorCode = 450;
     }
 }

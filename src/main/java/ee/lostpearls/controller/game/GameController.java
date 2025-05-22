@@ -1,5 +1,6 @@
-package ee.lostpearls.controller;
+package ee.lostpearls.controller.game;
 
+import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class GameController {
 
     @GetMapping("/game")
     @Operation(summary = "Tagastab m2ngu vastavalt valitud asukoha p6hjal")
-    public GameDto findGame(@RequestParam Integer gameId) {
-        GameDto gameDto = gameService.findGame(gameId);
-        return gameDto;
+    public GameInfo findGame(@RequestParam Integer gameId) {
+        GameInfo gameInfo = gameService.findGame(gameId);
+        return gameInfo;
     }
 }

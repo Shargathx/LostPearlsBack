@@ -1,4 +1,4 @@
-package ee.lostpearls;
+package ee.lostpearls.status;
 
 import lombok.Getter;
 

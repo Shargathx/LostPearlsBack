@@ -1,4 +1,4 @@
-package ee.lostpearls.controller;
+package ee.lostpearls.controller.login.dto;
 
 import lombok.Data;
 

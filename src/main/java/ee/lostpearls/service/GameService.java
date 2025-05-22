@@ -1,6 +1,6 @@
 package ee.lostpearls.service;
 
-import ee.lostpearls.controller.GameDto;
+import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
 import ee.lostpearls.persistence.game.Game;
 import ee.lostpearls.persistence.game.GameMapper;
@@ -16,17 +16,17 @@ public class GameService {
     private final GameMapper gameMapper;
 
 
-    public GameDto findGame(Integer gameId) {
-        Game game = getGame(gameId);
-        GameDto gameDto = gameMapper.toGameDto(game);
-        return  gameDto;
+    public GameInfo findGame(Integer gameId) {
+        Game game = getValidGameBy(gameId);
+        GameInfo gameInfo = gameMapper.toGameInfo(game);
+        return gameInfo;
 
 
 
     }
 
-    private Game getGame(Integer gameId) {
-        Game game = gameRepository.findById(gameId).orElseThrow(() -> new PrimaryKeyNotFoundException("gameId", gameId));
-        return game;
+    private Game getValidGameBy(Integer gameId) {
+        return gameRepository.findById(gameId).orElseThrow(() -> new PrimaryKeyNotFoundException("gameId", gameId));
     }
+
 }

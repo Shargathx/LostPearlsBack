@@ -1,6 +1,7 @@
 package ee.lostpearls.service;
 
-import ee.lostpearls.UserStatus;
+import ee.lostpearls.status.UserStatus;
+import ee.lostpearls.controller.login.dto.LoginResponse;
 import ee.lostpearls.infrastructure.exception.ForbiddenException;
 import ee.lostpearls.persistence.user.User;
 import ee.lostpearls.persistence.user.UserMapper;
