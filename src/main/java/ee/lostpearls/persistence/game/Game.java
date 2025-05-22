@@ -43,7 +43,7 @@ public class Game {
     private String status;
 
     @NotNull
-    @Column(name = "complete_date", nullable = false)
+    @Column(name = "complete_date")
     private LocalDate completeDate;
 
     @NotNull

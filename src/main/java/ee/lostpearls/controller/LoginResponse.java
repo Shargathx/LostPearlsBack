@@ -1,4 +1,4 @@
-package ee.lostpearls.service;
+package ee.lostpearls.controller;
 
 import lombok.Data;
 

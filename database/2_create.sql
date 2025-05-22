@@ -4,7 +4,7 @@
 -- tables
 -- Table: answer
 CREATE TABLE answer (
-                        id int  NOT NULL,
+                        id serial  NOT NULL,
                         location_id int  NOT NULL,
                         keyword varchar(255)  NOT NULL,
                         CONSTRAINT answer_pk PRIMARY KEY (id)
@@ -25,7 +25,7 @@ CREATE TABLE game (
                       start_time timestamp  NULL,
                       end_time timestamp  NULL,
                       status char(3)  NOT NULL,
-                      complete_date date  NOT NULL,
+                      complete_date date  NULL,
                       points int  NOT NULL,
                       CONSTRAINT game_pk PRIMARY KEY (id)
 );
@@ -58,6 +58,7 @@ CREATE TABLE location (
                           teaser varchar(1000)  NOT NULL,
                           extended_info varchar(2000)  NOT NULL,
                           question varchar(500)  NOT NULL,
+                          answer varchar(500)  NOT NULL,
                           date_added date  NOT NULL,
                           CONSTRAINT location_pk PRIMARY KEY (id)
 );
