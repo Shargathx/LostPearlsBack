@@ -18,7 +18,7 @@ public class KeywordController {
 
     @GetMapping("/location/keywords")
     public List<KeywordInfo> findAllKeywords(@RequestParam Integer locationId) {
-        List<KeywordInfo> keywordInfos = keywordService.findALlKeywords(locationId);
+        List<KeywordInfo> keywordInfos = keywordService.findAllKeywords(locationId);
         return keywordInfos;
 
     }
