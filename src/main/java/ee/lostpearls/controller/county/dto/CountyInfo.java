@@ -8,6 +8,6 @@ import lombok.Data;
 
 public class CountyInfo {
     private Integer countyId;
-    private String countyName; // not needed?
+    private String countyName;
 
 }
