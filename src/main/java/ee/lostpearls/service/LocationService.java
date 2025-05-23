@@ -1,8 +1,9 @@
 package ee.lostpearls.service;
 
+import ee.lostpearls.controller.location.dto.LocationDto;
+import ee.lostpearls.controller.location.dto.LocationInfo;
 import ee.lostpearls.infrastructure.exception.ForbiddenException;
 import ee.lostpearls.status.GameStatus;
-import ee.lostpearls.controller.location.dto.LocationDto;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
 import ee.lostpearls.persistence.county.County;
 import ee.lostpearls.persistence.county.CountyRepository;
@@ -43,10 +44,10 @@ public class LocationService {
     }
 
 
-    public LocationDto findLocation(Integer locationId) {
+    public LocationInfo findLocation(Integer locationId) {
         Location location = getLocationBy(locationId);
-        LocationDto locationDto = locationMapper.toLocationDto(location);
-        return locationDto;
+        LocationInfo locationInfo = locationMapper.toLocationInfo(location);
+        return locationInfo;
 
 
     }

@@ -1,6 +1,7 @@
 package ee.lostpearls.persistence.location;
 
 import ee.lostpearls.controller.location.dto.LocationDto;
+import ee.lostpearls.controller.location.dto.LocationInfo;
 import ee.lostpearls.persistence.user.UserMapper;
 import ee.lostpearls.status.GameStatus;
 import org.mapstruct.Mapper;
@@ -11,7 +12,6 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {UserMapper.class}, imports = GameStatus.class)
 public interface LocationMapper {
 
-    // to Entity
     @Mapping(source = "longitude", target = "longField")
     @Mapping(source = "latitude", target = "lat")
     @Mapping(expression = "java(GameStatus.ACTIVE.getCode())", target = "status")
@@ -22,7 +22,7 @@ public interface LocationMapper {
     @Mapping(source = "county.id", target = "countyId")
     @Mapping(source = "longField", target = "longitude")
     @Mapping(source = "lat", target = "latitude")
-    LocationDto toLocationDto(Location location);
+    LocationInfo toLocationInfo(Location location);
 
 
 }
