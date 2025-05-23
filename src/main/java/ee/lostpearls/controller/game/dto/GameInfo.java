@@ -17,5 +17,6 @@ public class GameInfo {
     private Long gameEndMilliseconds;
     private LocalDateTime completeDate;
     private Integer points;
-
+    private String imageData;
+    private List<HintInfo> hints;
 }

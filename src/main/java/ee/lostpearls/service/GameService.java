@@ -8,9 +8,13 @@ import ee.lostpearls.persistence.game.GameMapper;
 import ee.lostpearls.persistence.game.GameRepository;
 import ee.lostpearls.persistence.location.Location;
 import ee.lostpearls.persistence.location.LocationRepository;
+import ee.lostpearls.persistence.locationimage.LocationImage;
+import ee.lostpearls.persistence.locationimage.LocationImageRepository;
 import ee.lostpearls.persistence.user.User;
 import ee.lostpearls.persistence.user.UserRepository;
+import ee.lostpearls.util.ImageConverter;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +26,13 @@ public class GameService {
     private final GameMapper gameMapper;
     private final LocationRepository locationRepository;
     private final UserRepository userRepository;
+    private final LocationImageRepository locationImageRepository;
 
 
     public GameInfo findGame(Integer gameId) {
         Game game = getValidGameBy(gameId);
-        return gameMapper.toGameInfo(game);
+        GameInfo gameInfo = gameMapper.toGameInfo(game);
+        return gameInfo;
     }
 
     @Transactional
