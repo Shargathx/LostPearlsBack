@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -42,9 +43,8 @@ public class Game {
     @Column(name = "status", nullable = false, length = 3)
     private String status;
 
-    @NotNull
     @Column(name = "complete_date")
-    private LocalDate completeDate;
+    private LocalDateTime completeDate;
 
     @NotNull
     @Column(name = "points", nullable = false)

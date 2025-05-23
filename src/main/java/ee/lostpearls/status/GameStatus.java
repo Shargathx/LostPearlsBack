@@ -4,10 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum GameStatus {
-    ACTIVE("A"),  // user can activate the game?
-    ONGOING("O"), // user is playing the game?
-    COMPLETED("C"); // game is finished and dispalyed in "my locations"?
-
+    GAME_ADDED("GA"),  // user can activate the game?
+    GAME_STARTED("GS"),  // user can activate the game?
+    GAME_COMPLETED("GC");  // user can activate the game?
 
     private final String code;
 
