@@ -17,7 +17,7 @@ public class KeywordService {
     private final AnswerRepository answerRepository;
     private final AnswerMapper answerMapper;
 
-    public List<KeywordInfo> getAllKeywords(Integer locationId) {
+    public List<KeywordInfo> findALlKeywords(Integer locationId) {
         List<Answer> keywordsBy = answerRepository.findKeywordsBy(locationId);
         List<KeywordInfo> keywordInfos = answerMapper.toKeywordInfos(keywordsBy);
         return keywordInfos;

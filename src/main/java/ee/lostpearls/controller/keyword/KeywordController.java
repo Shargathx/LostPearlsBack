@@ -17,9 +17,8 @@ public class KeywordController {
     private final KeywordService keywordService;
 
     @GetMapping("/location/keywords")
-    //todo küsimus kas kasutada hoopis find. nt findAllKeywords v findLocationKeywords
-    public List<KeywordInfo> getAllKeywords(@RequestParam Integer locationId) {
-        List<KeywordInfo> keywordInfos = keywordService.getAllKeywords(locationId);
+    public List<KeywordInfo> findAllKeywords(@RequestParam Integer locationId) {
+        List<KeywordInfo> keywordInfos = keywordService.findALlKeywords(locationId);
         return keywordInfos;
 
     }
