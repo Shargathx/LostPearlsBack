@@ -37,7 +37,6 @@ public class LocationService {
         location.setUser(user);
         location.setCounty(county);
 
-        location.setStatus(GameStatus.ACTIVE.getCode());
         location.setDateAdded(LocalDate.now());
 
         locationRepository.save(location);

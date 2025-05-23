@@ -12,10 +12,16 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {UserMapper.class}, imports = GameStatus.class)
 public interface LocationMapper {
 
+
+
+
+//    @Mapping(source = "answer", target = "answer")
+  //  @Mapping(source = "teaser", target = "teaser")
     @Mapping(source = "longitude", target = "longField")
     @Mapping(source = "latitude", target = "lat")
-    @Mapping(expression = "java(GameStatus.ACTIVE.getCode())", target = "status")
+    @Mapping(constant = "A", target = "status")
     Location toLocation(LocationDto locationDto);
+
 
 
     @Mapping(source = "county.name", target = "countyName")
