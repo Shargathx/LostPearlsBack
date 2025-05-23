@@ -2,6 +2,8 @@ package ee.lostpearls.controller.game.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class GameInfo {
     private Integer locationId;
@@ -11,5 +13,9 @@ public class GameInfo {
     private String question;
     private String answer;
     private String gameStatus;
-    private Integer gameStartMilliseconds;
+    private Long gameStartMilliseconds;
+    private Long gameEndMilliseconds;
+    private LocalDateTime completeDate;
+    private Integer points;
+
 }
