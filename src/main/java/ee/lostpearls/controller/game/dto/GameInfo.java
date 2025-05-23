@@ -18,5 +18,5 @@ public class GameInfo {
     private LocalDateTime completeDate;
     private Integer points;
     private String imageData;
-    private List<HintInfo> hints;
+    //private List<HintInfo> hints; // comment this in later
 }
