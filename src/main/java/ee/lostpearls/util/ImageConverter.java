@@ -8,6 +8,6 @@ public class ImageConverter {
     }
 
     public static byte[] stringToBytes(String value){
-        return value.getBytes(StandardCharsets.UTF_8)
+        return value.getBytes(StandardCharsets.UTF_8);
     }
 }
