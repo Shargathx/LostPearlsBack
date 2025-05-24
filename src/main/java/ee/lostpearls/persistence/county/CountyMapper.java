@@ -11,6 +11,7 @@ import java.util.List;
     @Mapping(source = "id", target = "countyId")
     @Mapping(source = "name", target = "countyName")
     CountyInfo toCountyInfo(County county);
+
     List<CountyInfo> toCountyInfos(List<County> county);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)County partialUpdate(CountyInfo countyInfo, @MappingTarget County county);

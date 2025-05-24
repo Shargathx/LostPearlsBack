@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 
@@ -28,11 +30,26 @@ public class LocationController {
     }
 
 
-
-
     @GetMapping("/location/{locationId}")
     public LocationInfo findLocation(@PathVariable Integer locationId) {
         return locationService.findLocation(locationId);
     }
+
+
+    @GetMapping("/locations")
+    public List<LocationInfo> findAllLocations() {
+        return locationService.findAllLocations();
+    }
+
+
+
+
+/*
+    @PutMapping("/location/{locationId}")
+    public void PatchLocation patchLocation(@RequestParam Integer userId, @RequestBody LocationInfo locationInfo) {
+
+    }
+
+ */
 
 }
