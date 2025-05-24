@@ -19,7 +19,7 @@ public class LoginService {
 
     public LoginResponse login(String loginName, String password) {
         User user = userRepository.findUserBy(loginName, loginName, password, UserStatus.ACTIVE.getCode())
-                .orElseThrow(() -> new ForbiddenException("Vale kasutajanimi või paroool", 111));
+                .orElseThrow(() -> new ForbiddenException("Vale kasutajanimi või parool", 111));
 
         LoginResponse loginResponse = userMapper.toLoginResponse(user);
         return loginResponse;

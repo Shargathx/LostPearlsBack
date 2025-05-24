@@ -1,19 +1,17 @@
 package ee.lostpearls.persistence.user;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u from User u where (u.username = :username or u.email = :email) and u.password = :password and u.status = :status")
-    Optional<User> findUserBy(String username, String email, String password, String status);
+    Optional<User> findUserBy(@Param("username") String username, @Param("email") String email, @Param("password") String password, @Param("status") String status);
 
     @Query("select (count(u) > 0) from User u where u.username = :username or u.email = :email")
     boolean userExistsBy(String username, String email);
