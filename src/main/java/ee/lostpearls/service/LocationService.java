@@ -4,7 +4,6 @@ import ee.lostpearls.controller.location.dto.LocationDto;
 import ee.lostpearls.controller.location.dto.LocationInfo;
 import ee.lostpearls.infrastructure.error.Error;
 import ee.lostpearls.infrastructure.exception.DataNotFoundException;
-import ee.lostpearls.infrastructure.exception.ForbiddenException;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
 import ee.lostpearls.persistence.county.County;
 import ee.lostpearls.persistence.county.CountyRepository;
@@ -13,11 +12,15 @@ import ee.lostpearls.persistence.location.LocationMapper;
 import ee.lostpearls.persistence.location.LocationRepository;
 import ee.lostpearls.persistence.user.User;
 import ee.lostpearls.persistence.user.UserRepository;
+import ee.lostpearls.status.LocationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import static ee.lostpearls.status.LocationStatus.LOCATION_ADDED;
 
 @Service
 @RequiredArgsConstructor
@@ -44,19 +47,43 @@ public class LocationService {
     }
 
     public LocationInfo findLocation(Integer locationId) {
-        Location location = locationRepository.findById(locationId).orElseThrow(() -> new PrimaryKeyNotFoundException("locationId ", locationId));
+        Location location = locationRepository.findById(locationId)
+                .orElseThrow(() -> new PrimaryKeyNotFoundException("locationId ", locationId));
+        if (!location.getStatus().equals(LOCATION_ADDED.getCode())) {
+            throw new PrimaryKeyNotFoundException("locationId ", locationId);
+        }
         return locationMapper.toLocationInfo(location);
     }
 
 
 
+
+
     public List<LocationInfo> findAllLocations() {
-        List<Location> locations = locationRepository.findAll();
+        List<Location> locations = locationRepository.findByStatus(LOCATION_ADDED.getCode());
         if (locations.isEmpty()) {
             throw new DataNotFoundException(Error.NO_LOCATIONS_FOUND.getMessage(), Error.NO_LOCATIONS_FOUND.getErrorCode());
         }
         List<LocationInfo> locationDtos = locationMapper.toLocationInfos(locations);
         return locationDtos;
+    }
+
+/*
+    public void updateLocation(Integer locationId, LocationDto locationDto) {
+        Location location = locationRepository.findById(locationId)
+                .orElseThrow(() -> new PrimaryKeyNotFoundException("locationId ", locationId));
+
+
+
+ */
+
+    public void removeLocation(Integer locationId) {
+        Location location = locationRepository.findById(locationId)
+                .orElseThrow(() -> new PrimaryKeyNotFoundException("locationId ", locationId));
+        location.setStatus(LocationStatus.LOCATION_DELETED.getCode());
+        locationRepository.save(location);
+
+
     }
 
 }

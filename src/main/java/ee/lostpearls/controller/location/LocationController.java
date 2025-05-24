@@ -46,10 +46,16 @@ public class LocationController {
 
 /*
     @PutMapping("/location/{locationId}")
-    public void PatchLocation patchLocation(@RequestParam Integer userId, @RequestBody LocationInfo locationInfo) {
+    public void updateLocation(@PathVariable Integer locationId, @RequestBody LocationDto locationDto) {
 
     }
 
  */
+
+    @DeleteMapping("/location")
+    public void removeLocation(@RequestParam Integer locationId) {
+        locationService.removeLocation(locationId);
+    }
+
 
 }
