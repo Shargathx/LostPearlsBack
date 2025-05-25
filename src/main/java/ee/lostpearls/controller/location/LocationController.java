@@ -1,5 +1,6 @@
 package ee.lostpearls.controller.location;
 
+import ee.lostpearls.controller.location.dto.LocationDto;
 import ee.lostpearls.controller.location.dto.LocationInfo;
 import ee.lostpearls.infrastructure.error.ApiError;
 import ee.lostpearls.service.LocationService;
@@ -44,13 +45,12 @@ public class LocationController {
 
 
 
-/*
-    @PutMapping("/location/{locationId}")
-    public void updateLocation(@PathVariable Integer locationId, @RequestBody LocationDto locationDto) {
+    @PutMapping("/location")
+    public void updateLocation(@RequestParam Integer locationId, @RequestBody LocationDto locationDto) {
+        locationService.updateLocation(locationId, locationDto);
 
     }
 
- */
 
     @DeleteMapping("/location")
     public void removeLocation(@RequestParam Integer locationId) {

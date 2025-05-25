@@ -15,7 +15,6 @@ import ee.lostpearls.persistence.user.UserRepository;
 import ee.lostpearls.status.LocationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -56,9 +55,6 @@ public class LocationService {
     }
 
 
-
-
-
     public List<LocationInfo> findAllLocations() {
         List<Location> locations = locationRepository.findByStatus(LOCATION_ADDED.getCode());
         if (locations.isEmpty()) {
@@ -68,22 +64,24 @@ public class LocationService {
         return locationDtos;
     }
 
-/*
-    public void updateLocation(Integer locationId, LocationDto locationDto) {
+
+    public Location updateLocation(Integer locationId, LocationDto locationDto) {
         Location location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("locationId ", locationId));
+        County county = countyRepository.findById(locationDto.getCountyId()).orElseThrow(() -> new PrimaryKeyNotFoundException("countyId ", locationDto.getCountyId()));
+        location.setCounty(county);
+        locationMapper.partialUpdate(location, locationDto);
+        locationRepository.save(location);
+        return location;
+    }
 
-
-
- */
 
     public void removeLocation(Integer locationId) {
         Location location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("locationId ", locationId));
         location.setStatus(LocationStatus.LOCATION_DELETED.getCode());
         locationRepository.save(location);
-
-
     }
 
 }
+

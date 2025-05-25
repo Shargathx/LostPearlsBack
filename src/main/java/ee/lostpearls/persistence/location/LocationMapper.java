@@ -4,10 +4,7 @@ import ee.lostpearls.controller.location.dto.LocationDto;
 import ee.lostpearls.controller.location.dto.LocationInfo;
 import ee.lostpearls.persistence.user.UserMapper;
 import ee.lostpearls.status.LocationStatus;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -27,6 +24,13 @@ public interface LocationMapper {
     LocationInfo toLocationInfo(Location location);
 
     List<LocationInfo> toLocationInfos(List<Location> locations);
+
+
+    @Mapping(expression = "java(LocationStatus.LOCATION_ADDED.getCode())", target = "status")
+    @Mapping(source = "countyId", target = "county.id")
+    @Mapping(source = "latitude", target = "lat")
+    @Mapping(source = "longitude", target = "longField")
+    Location partialUpdate(@MappingTarget Location location, LocationDto locationDto);
 
 
 
