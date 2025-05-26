@@ -14,7 +14,7 @@ public class CountyController {
 
     private final CountyService countyService;
 
-    @GetMapping("/location")
+    @GetMapping("/counties")
     public List<CountyInfo> getAllCounties() {
         List<CountyInfo> countyInfos = countyService.getAllCounties();
         return countyInfos;
