@@ -1,5 +1,6 @@
 package ee.lostpearls.service;
 
+import ee.lostpearls.controller.hint.dto.HintDto;
 import ee.lostpearls.controller.hint.dto.HintInfo;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
 import ee.lostpearls.persistence.hint.Hint;
@@ -28,10 +29,11 @@ public class HintService {
         return hintInfos;
     }
 
-    public void addHint(Integer locationId, HintInfo hintInfo) {
-        Hint hint = hintMapper.toHint(hintInfo);
-        Location location = locationRepository.findById(locationId)
-                .orElseThrow(() -> new PrimaryKeyNotFoundException("locationId", locationId));
+    public void addHint(HintDto hintDto) {
+
+        Location location = locationRepository.findById(hintDto.getLocationId())
+                .orElseThrow(() -> new PrimaryKeyNotFoundException("locationId", hintDto.getLocationId()));
+        Hint hint = hintMapper.toHint(hintDto);
         hint.setLocation(location);
         hintRepository.save(hint);
 

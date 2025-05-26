@@ -40,5 +40,12 @@ public class KeywordService {
         answer.setLocation(location);
         answerRepository.save(answer);
     }
+
+    public void deleteKeyword(Integer answerId) {
+        Answer keyword = answerRepository.findById(answerId)
+                .orElseThrow(() -> new PrimaryKeyNotFoundException("answerId", answerId));
+        answerRepository.delete(keyword);
+    }
 }
+
 

@@ -1,5 +1,6 @@
 package ee.lostpearls.persistence.hint;
 
+import ee.lostpearls.controller.hint.dto.HintDto;
 import ee.lostpearls.controller.hint.dto.HintInfo;
 import org.mapstruct.*;
 
@@ -10,7 +11,7 @@ public interface HintMapper {
 
 
     @Mapping(source = "hint", target = "hint")
-    Hint toHint(HintInfo hintInfo);
+    Hint toHint(HintDto hintDto);
 
     @Mapping(source = "id", target = "hintId")
     @Mapping(source = "hint", target = "hint")
