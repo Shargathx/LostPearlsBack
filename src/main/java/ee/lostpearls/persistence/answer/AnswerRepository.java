@@ -10,4 +10,6 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer> {
 
   @Query("select a from Answer a where a.location.id = :locationId")
   List<Answer> findKeywordsBy(Integer locationId);
+
+  Answer keyword(String keyword);
 }
