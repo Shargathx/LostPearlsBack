@@ -1,12 +1,10 @@
 package ee.lostpearls.controller.county.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+public class CountyResponse {
 
-@Data
-@AllArgsConstructor
-
-public class CountyInfo {
     private Integer countyId;
     private String countyName;
+    private double latitude;
+    private double longitude;
+
 }

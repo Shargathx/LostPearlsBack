@@ -1,9 +1,11 @@
 package ee.lostpearls.controller.county;
 
 import ee.lostpearls.controller.county.dto.CountyInfo;
+import ee.lostpearls.persistence.county.County;
 import ee.lostpearls.service.CountyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,6 +20,13 @@ public class CountyController {
     public List<CountyInfo> getAllCounties() {
         List<CountyInfo> countyInfos = countyService.getAllCounties();
         return countyInfos;
+    }
+
+
+    @GetMapping("/county/{id}")
+    public County getCounty(@PathVariable Integer id) {
+        return countyService.getCounty(id);
+
     }
 
 }

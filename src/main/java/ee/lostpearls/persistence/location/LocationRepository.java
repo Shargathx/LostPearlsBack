@@ -28,10 +28,6 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
     @Query("select l from Location l where l.user.id = :userId and l.status = :status")
     List<Location> findLocationByUserIdAndStatus(@Param("userId") Integer userId, @Param("status") String status);
 
-
-
-    double lat(BigDecimal lat);
-
     @Query("select (count(l) > 0) from Location l where l.locationName = ?1 and l.county.id = ?2")
     boolean locationExistsByNameAndCounty(String locationName, Integer id);
 }

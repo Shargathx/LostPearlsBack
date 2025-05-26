@@ -37,7 +37,7 @@ public class LocationService {
         Location location = locationMapper.toLocation(locationDto);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("user Id ", userId));
-        County county = countyRepository.findById(locationDto.getCountyId())
+        County county = countyRepository.findCountyById(locationDto.getCountyId())
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("county Id ", locationDto.getCountyId()));
 
         boolean locationExists = locationRepository.locationExistsByNameAndCounty(locationDto.getLocationName(), county.getId());
@@ -85,7 +85,7 @@ public class LocationService {
     public void updateLocation(Integer locationId, LocationDto locationDto) {
         Location location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("locationId ", locationId));
-        County county = countyRepository.findById(locationDto.getCountyId()).orElseThrow(() -> new PrimaryKeyNotFoundException("countyId ", locationDto.getCountyId()));
+        County county = countyRepository.findCountyById(locationDto.getCountyId()).orElseThrow(() -> new PrimaryKeyNotFoundException("countyId ", locationDto.getCountyId()));
         location.setCounty(county);
         locationMapper.partialUpdate(location, locationDto);
         locationRepository.save(location);

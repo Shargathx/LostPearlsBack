@@ -13,7 +13,7 @@ import java.util.List;
 public interface LocationMapper {
 
     @Mapping(source = "longitude", target = "longField")
-    @Mapping(source = "latitude", target = "lat")
+    @Mapping(source = "latitude", target = "latField")
     @Mapping(expression = "java(LocationStatus.LOCATION_ADDED.getCode())", target = "status")
     Location toLocation(LocationDto locationDto);
 
@@ -21,7 +21,7 @@ public interface LocationMapper {
     @Mapping(source = "county.name", target = "countyName")
     @Mapping(source = "county.id", target = "countyId")
     @Mapping(source = "longField", target = "longitude")
-    @Mapping(source = "lat", target = "latitude")
+    @Mapping(source = "latField", target = "latitude")
     LocationInfo toLocationInfo(Location location);
 
     List<LocationInfo> toLocationInfos(List<Location> locations);
@@ -29,7 +29,7 @@ public interface LocationMapper {
 
     @Mapping(expression = "java(LocationStatus.LOCATION_ADDED.getCode())", target = "status")
     @Mapping(source = "countyId", target = "county.id")
-    @Mapping(source = "latitude", target = "lat")
+    @Mapping(source = "latitude", target = "latField")
     @Mapping(source = "longitude", target = "longField")
     Location partialUpdate(@MappingTarget Location location, LocationDto locationDto);
 
@@ -37,7 +37,7 @@ public interface LocationMapper {
 
     @Mapping(source = "county.name", target = "countyName")
     @Mapping(source = "longField", target = "longitude")
-    @Mapping(source = "lat", target = "latitude")
+    @Mapping(source = "latField", target = "latitude")
     LocationResponse toLocationResponse(Location location);
     List<LocationResponse> toLocationResponses(List<Location> locations);
 

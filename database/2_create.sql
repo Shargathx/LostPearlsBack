@@ -14,8 +14,8 @@ CREATE TABLE answer (
 CREATE TABLE county (
                         id serial NOT NULL,
                         name varchar(50) NOT NULL,
-                        longitude numeric(9,6) NOT NULL,
-                        latitude numeric(9,6) NOT NULL,
+                        longField numeric(9,6) NOT NULL,
+                        latField numeric(9,6) NOT NULL,
                         zoom_level integer NOT NULL,
                         CONSTRAINT county_pk PRIMARY KEY (id)
 );
@@ -55,8 +55,8 @@ CREATE TABLE location (
                           user_id int  NOT NULL,
                           county_id int  NOT NULL,
                           name varchar(255)  NOT NULL,
-                          long decimal(18,15)  NULL,
-                          lat decimal(18,15)  NULL,
+                          longField decimal(18,15)  NULL,
+                          latField decimal(18,15)  NULL,
                           status char(1)  NOT NULL,
                           teaser varchar(1000)  NOT NULL,
                           extended_info varchar(2000)  NOT NULL,
