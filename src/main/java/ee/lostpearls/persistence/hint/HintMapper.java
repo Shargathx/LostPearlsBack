@@ -8,6 +8,8 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface HintMapper {
 
+
+    @Mapping(source = "hint", target = "hint")
     Hint toHint(HintInfo hintInfo);
 
     @Mapping(source = "id", target = "hintId")

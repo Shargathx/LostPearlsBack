@@ -1,11 +1,10 @@
 package ee.lostpearls.controller.keyword;
 
+import ee.lostpearls.controller.keyword.dto.KeywordDto;
 import ee.lostpearls.controller.keyword.dto.KeywordInfo;
 import ee.lostpearls.service.KeywordService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,10 @@ public class KeywordController {
         List<KeywordInfo> keywordInfos = keywordService.findAllKeywords(locationId);
         return keywordInfos;
 
+    }
+
+    @PostMapping ("/keyword")
+    public void addKeyword( @RequestBody KeywordDto keywordDto) {
+        keywordService.addKeyword(keywordDto);
     }
 }

@@ -3,9 +3,7 @@ package ee.lostpearls.controller.hint;
 import ee.lostpearls.controller.hint.dto.HintInfo;
 import ee.lostpearls.service.HintService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +19,14 @@ public class HintController {
         return hintInfos;
     }
 
+    //todo ei tööta
+    @PostMapping("/hint")
+    public void addHint(Integer locationId, @RequestParam HintInfo hintInfo) {
+        hintService.addHint(locationId, hintInfo);
+    }
+
+    @DeleteMapping("/hint")
+    public void deleteHint(Integer hintId) {
+        hintService.deleteHint(hintId);
+    }
 }
