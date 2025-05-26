@@ -15,7 +15,7 @@ public class HintController {
 
     private final HintService hintService;
 
-    @GetMapping("/location")
+    @GetMapping("/hints")
     public List<HintInfo> findAllHints(@RequestParam Integer locationId) {
         List<HintInfo> hintInfos = hintService.findAllHints(locationId);
         return hintInfos;
