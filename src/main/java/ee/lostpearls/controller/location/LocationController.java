@@ -34,10 +34,10 @@ public class LocationController {
         locationService.addLocation(userId, locationInfo);
     }
 
-    @GetMapping("/location/check-duplicate")
-    public boolean checkDuplicate(@RequestParam String locationName, @RequestParam Integer countyId, @RequestParam Double latitude, @RequestParam Double longitude) {
-        return locationService.checkDuplicate(locationName, countyId, latitude, longitude);
-    }
+//    @GetMapping("/location/check-duplicate")
+//    public boolean checkDuplicate(@RequestParam String locationName, @RequestParam Integer countyId, @RequestParam Double latitude, @RequestParam Double longitude) {
+//        return locationService.checkDuplicate(locationName, countyId, latitude, longitude);
+//    }
 
 
     @GetMapping("/location/{locationId}")

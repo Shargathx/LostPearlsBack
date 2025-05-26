@@ -1,7 +1,14 @@
 package ee.lostpearls.infrastructure.exception;
 
+import lombok.Getter;
+
+@Getter
 public class DuplicateLocationException extends RuntimeException {
+    private final String message;
+    private final Integer errorCode;
+
     public DuplicateLocationException() {
-        super("A location with the same name and coordinates already exists in this county.");
+        this.message = "Selline asukoht juba eksisteerib!";
+        this.errorCode = 45;
     }
 }

@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 
 public class LocationInfo extends LocationDto {
     private String countyName;
-    private Integer locationId; // added
 }

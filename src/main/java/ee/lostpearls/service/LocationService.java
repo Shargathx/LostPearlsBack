@@ -40,26 +40,16 @@ public class LocationService {
         County county = countyRepository.findById(locationDto.getCountyId())
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("county Id ", locationDto.getCountyId()));
 
-        location.setUser(user);
-        location.setCounty(county);
-        location.setDateAdded(LocalDate.now());
-
-        double roundedLat = round(location.getLat().doubleValue(), 4);
-        double roundedLong = round(location.getLongField().doubleValue(), 4);
-
-        boolean locationExists = locationRepository.locationExistsByNameAndCountyAndCoord(location.getLocationName(), roundedLat, roundedLong, location.getCounty().getId());
+        boolean locationExists = locationRepository.locationExistsByNameAndCounty(locationDto.getLocationName(), county.getId());
         if (locationExists) {
             throw new DuplicateLocationException();
         }
 
+        location.setUser(user);
+        location.setCounty(county);
+        location.setDateAdded(LocalDate.now());
+
         locationRepository.save(location);
-    }
-
-
-    public boolean checkDuplicate(String locationName, Integer countyId, Double latitude, Double longitude) {
-        double roundedLat = round(latitude, 4);
-        double roundedLong = round(longitude, 4);
-        return locationRepository.locationExistsByNameAndCountyAndCoord(locationName, roundedLat, roundedLong, countyId);
     }
 
 
