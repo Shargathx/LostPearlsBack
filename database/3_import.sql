@@ -8,18 +8,18 @@ INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUE
 INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUES (default, 2, '', '', 'mikk@mikk.com', 'D');
 
 
-INSERT INTO pearls.county (id, name)
-VALUES (default, 'Harjumaa');
-INSERT INTO pearls.county (id, name)
-VALUES (default, 'Hiiumaa');
-INSERT INTO pearls.county (id, name)
-VALUES (default, 'Põlva');
-INSERT INTO pearls.county (id, name)
-VALUES (default, 'Rapla');
-INSERT INTO pearls.county (id, name)
-VALUES (default, 'Viljandi');
-INSERT INTO pearls.county (id, name)
-VALUES (default, 'Võrumaa');
+INSERT INTO pearls.county (id, name, longitude, latitude, zoom_level)
+VALUES (default, 'Harjumaa', 24.742995401694774, 59.413590862727105, 9);
+INSERT INTO pearls.county (id, name, longitude, latitude, zoom_level)
+VALUES (default, 'Hiiumaa', 22.62150928795219, 58.91343934989263, 10);
+INSERT INTO pearls.county (id, name, longitude, latitude, zoom_level)
+VALUES (default, 'Tartu', 26.725891046226025, 58.37291790620775, 9);
+INSERT INTO pearls.county (id, name, longitude, latitude, zoom_level)
+VALUES (default, 'Rapla', 24.800537042319775, 59.00238439625071, 10);
+INSERT INTO pearls.county (id, name, longitude, latitude, zoom_level)
+VALUES (default, 'Viljandi', 25.58111568912864, 58.36139381804461, 10);
+INSERT INTO pearls.county (id, name, longitude, latitude, zoom_level)
+VALUES (default, 'Võrumaa', 27.01167295686901, 57.83890342754204, 11);
 
 
 

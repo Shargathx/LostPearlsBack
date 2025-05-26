@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 public class LocationResponse {
+    private int locationId;
     private String locationName;
     private String countyName;
     private BigDecimal longitude;

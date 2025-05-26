@@ -12,8 +12,11 @@ CREATE TABLE answer (
 
 -- Table: county
 CREATE TABLE county (
-                        id serial  NOT NULL,
-                        name varchar(50)  NOT NULL,
+                        id serial NOT NULL,
+                        name varchar(50) NOT NULL,
+                        longitude numeric(9,6) NOT NULL,
+                        latitude numeric(9,6) NOT NULL,
+                        zoom_level integer NOT NULL,
                         CONSTRAINT county_pk PRIMARY KEY (id)
 );
 
