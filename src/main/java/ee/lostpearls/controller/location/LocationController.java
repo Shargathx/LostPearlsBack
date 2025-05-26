@@ -2,6 +2,7 @@ package ee.lostpearls.controller.location;
 
 import ee.lostpearls.controller.location.dto.LocationDto;
 import ee.lostpearls.controller.location.dto.LocationInfo;
+import ee.lostpearls.controller.location.dto.LocationResponse;
 import ee.lostpearls.infrastructure.error.ApiError;
 import ee.lostpearls.service.LocationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,6 +42,13 @@ public class LocationController {
     public List<LocationInfo> findAllLocations() {
         return locationService.findAllLocations();
     }
+
+
+    @GetMapping("/locations/all")
+    public List<LocationResponse> findAllLocationsByUserId(@RequestParam Integer userId) {
+        return locationService.findAllLocationsByUserId(userId);
+    }
+
 
 
 

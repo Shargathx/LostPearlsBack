@@ -2,6 +2,7 @@ package ee.lostpearls.persistence.location;
 
 import ee.lostpearls.controller.location.dto.LocationDto;
 import ee.lostpearls.controller.location.dto.LocationInfo;
+import ee.lostpearls.controller.location.dto.LocationResponse;
 import ee.lostpearls.persistence.user.UserMapper;
 import ee.lostpearls.status.LocationStatus;
 import org.mapstruct.*;
@@ -31,6 +32,14 @@ public interface LocationMapper {
     @Mapping(source = "latitude", target = "lat")
     @Mapping(source = "longitude", target = "longField")
     Location partialUpdate(@MappingTarget Location location, LocationDto locationDto);
+
+
+
+    @Mapping(source = "county.name", target = "countyName")
+    @Mapping(source = "longField", target = "longitude")
+    @Mapping(source = "lat", target = "latitude")
+    LocationResponse toLocationResponse(Location location);
+    List<LocationResponse> toLocationResponses(List<Location> locations);
 
 
 

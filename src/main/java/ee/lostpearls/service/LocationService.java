@@ -2,6 +2,7 @@ package ee.lostpearls.service;
 
 import ee.lostpearls.controller.location.dto.LocationDto;
 import ee.lostpearls.controller.location.dto.LocationInfo;
+import ee.lostpearls.controller.location.dto.LocationResponse;
 import ee.lostpearls.infrastructure.error.Error;
 import ee.lostpearls.infrastructure.exception.DataNotFoundException;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
@@ -62,6 +63,14 @@ public class LocationService {
         }
         List<LocationInfo> locationDtos = locationMapper.toLocationInfos(locations);
         return locationDtos;
+    }
+
+    public List<LocationResponse> findAllLocationsByUserId(Integer userId) {
+        List<Location> locations = locationRepository.findLocationByUserIdAndStatus(userId, LOCATION_ADDED.getCode());
+        if (locations.isEmpty()) {
+            throw new DataNotFoundException(Error.NO_LOCATIONS_FOUND.getMessage(), Error.NO_LOCATIONS_FOUND.getErrorCode());
+        }
+        return locationMapper.toLocationResponses(locations);
     }
 
 
