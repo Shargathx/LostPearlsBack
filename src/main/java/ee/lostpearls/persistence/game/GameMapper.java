@@ -3,8 +3,10 @@ package ee.lostpearls.persistence.game;
 import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.controller.game.dto.GameSetupDto;
 import ee.lostpearls.status.GameStatus;
-import org.mapstruct.*;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 import java.time.Instant;
 
@@ -13,6 +15,7 @@ import java.time.Instant;
 public interface GameMapper {
 
 
+    @Mapping(source = "location.county.name", target = "countyName")
     @Mapping(source = "location.id", target = "locationId")
     @Mapping(source = "location.name", target = "locationName")
     @Mapping(source = "location.teaser", target = "teaserInfo")
@@ -24,10 +27,11 @@ public interface GameMapper {
     @Mapping(source = "status", target = "gameStatus")
     @Mapping(source = "startTime", target = "gameStartMilliseconds")
     @Mapping(source = "endTime", target = "gameEndMilliseconds")
-    @Mapping(source = "location.lat", target = "lat")
-    @Mapping(source = "location.longField", target = "lng")
-    // @Mapping(pilt/pildid tulevad pildi teenusest, target = "imageData")
-    // @Mapping( hint tuleb eraldi teenusega hing v game_hint tabelist, target = "hint")
+    @Mapping(source = "location.latfield", target = "lat")
+    @Mapping(source = "location.longfield", target = "lng")
+    @Mapping(constant = "", target = "imageData")
+    @Mapping(constant = "14", target = "zoomLevel")
+        // @Mapping( hint tuleb eraldi teenusega hing v game_hint tabelist, target = "hint")
     GameInfo toGameInfo(Game game);
 
     /*/ Converts Instant to Long(timestamp in millisec)

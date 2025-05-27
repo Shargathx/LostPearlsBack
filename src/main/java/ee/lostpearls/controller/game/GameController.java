@@ -29,4 +29,11 @@ public class GameController {
         return game.getId();
     }
 
+    @PatchMapping("/game")
+    @Operation(summary = "Uuendab m2ngu tabelit vastavalt kaugele m2nguga j6utud on. Sisuliselt saab m2ng uueneda kaks korda." +
+            "Esiteks kui vajutatakse Start, millega muutub saatus ja luuakse start_time. Teiseks kui sisestatakse 6ige vastus ja m2ng on completed.")
+    public void updateGame(Integer gameId) {
+        gameService.updateGame(gameId);
+    }
+
 }

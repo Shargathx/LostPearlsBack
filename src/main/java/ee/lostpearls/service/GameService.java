@@ -63,4 +63,8 @@ public class GameService {
         game.setUser(user);
         return game;
     }
+
+    public void updateGame(Integer gameId) {
+    }
+
 }

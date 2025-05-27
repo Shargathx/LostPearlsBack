@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class GameInfo {
     private Integer locationId;
     private String locationName;
+    private String countyName;
     private String teaserInfo;
     private String extendedInfo;
     private String question;
@@ -21,5 +22,7 @@ public class GameInfo {
     private String imageData;
     private BigDecimal lat;
     private BigDecimal lng;
+    private Integer zoomLevel;
+
     //private List<HintInfo> hints; // comment this in later
 }
