@@ -24,6 +24,8 @@ public interface GameMapper {
     @Mapping(source = "status", target = "gameStatus")
     @Mapping(source = "startTime", target = "gameStartMilliseconds")
     @Mapping(source = "endTime", target = "gameEndMilliseconds")
+    @Mapping(source = "location.lat", target = "lat")
+    @Mapping(source = "location.longField", target = "lng")
     // @Mapping(pilt/pildid tulevad pildi teenusest, target = "imageData")
     // @Mapping( hint tuleb eraldi teenusega hing v game_hint tabelist, target = "hint")
     GameInfo toGameInfo(Game game);

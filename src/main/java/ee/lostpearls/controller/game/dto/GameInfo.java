@@ -2,6 +2,7 @@ package ee.lostpearls.controller.game.dto;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -18,5 +19,7 @@ public class GameInfo {
     private LocalDateTime completeDate;
     private Integer points;
     private String imageData;
+    private BigDecimal lat;
+    private BigDecimal lng;
     //private List<HintInfo> hints; // comment this in later
 }
