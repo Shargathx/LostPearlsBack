@@ -16,6 +16,7 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
 
 
 
+
     Integer county(@NotNull County county);
 
     @Query("select l from Location l where l.id = :id and l.status = :status")
@@ -29,4 +30,11 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
 
     @Query("select (count(l) > 0) from Location l where l.name = ?1 and l.county.id = ?2")
     boolean locationExistsByNameAndCounty(String name, Integer id);
+
+    @Query("select l from Location l where l.county.id = :countyId and l.status = :status")
+    List<Location> findRandomLocationByCounty(Integer countyId, String status);
+
+    @Query("SELECT l.id from Location l where l.user.id = :userId")
+    List<Integer> findLocationCreatedByUser(@Param("userId") Integer userId);
+
 }

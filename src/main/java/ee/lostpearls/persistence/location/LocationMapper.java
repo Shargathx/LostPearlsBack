@@ -1,8 +1,6 @@
 package ee.lostpearls.persistence.location;
 
-import ee.lostpearls.controller.location.dto.LocationDto;
-import ee.lostpearls.controller.location.dto.LocationInfo;
-import ee.lostpearls.controller.location.dto.LocationResponse;
+import ee.lostpearls.controller.location.dto.*;
 import ee.lostpearls.persistence.user.UserMapper;
 import ee.lostpearls.status.LocationStatus;
 import org.mapstruct.*;
@@ -46,6 +44,14 @@ public interface LocationMapper {
     @Mapping(source = "id", target = "locationId")
     LocationResponse toLocationResponse(Location location);
     List<LocationResponse> toLocationResponses(List<Location> locations);
+
+
+    @Mapping(source = "name", target = "locationName")
+    @Mapping(source = "latfield", target = "latitude")
+    @Mapping(source = "longfield", target = "longitude")
+    @Mapping(source = "dateAdded", target = "dateAdded")
+    RandomLocationResponse toRandomLocationResponse(Location location);
+    List<RandomLocationResponse> toRandomLocationResponses(List<Location> locations);
 
 
 
