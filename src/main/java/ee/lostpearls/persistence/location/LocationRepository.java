@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +13,7 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
     @Override
 
     Optional<Location> findById(Integer locationId);
+
 
 
 
@@ -28,6 +28,13 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
     @Query("select l from Location l where l.user.id = :userId and l.status = :status")
     List<Location> findLocationByUserIdAndStatus(@Param("userId") Integer userId, @Param("status") String status);
 
-    @Query("select (count(l) > 0) from Location l where l.locationName = ?1 and l.county.id = ?2")
-    boolean locationExistsByNameAndCounty(String locationName, Integer id);
+    @Query("select (count(l) > 0) from Location l where l.name = ?1 and l.county.id = ?2")
+    boolean locationExistsByNameAndCounty(String name, Integer id);
+
+    @Query("select l from Location l where l.county.id = :countyId and l.status = :status")
+    List<Location> findRandomLocationByCounty(Integer countyId, String status);
+
+    @Query("SELECT l.id from Location l where l.user.id = :userId")
+    List<Integer> findLocationCreatedByUser(@Param("userId") Integer userId);
+
 }
