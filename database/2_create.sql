@@ -57,6 +57,7 @@ CREATE TABLE location (
                           name varchar(255)  NOT NULL,
                           longField decimal(18,15)  NULL,
                           latField decimal(18,15)  NULL,
+                          zoomLevel int NOT NULL,
                           status char(1)  NOT NULL,
                           teaser varchar(1000)  NOT NULL,
                           extended_info varchar(2000)  NOT NULL,
