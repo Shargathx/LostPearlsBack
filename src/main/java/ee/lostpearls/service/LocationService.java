@@ -39,7 +39,7 @@ public class LocationService {
     private final LocationRepository locationRepository;
     private final GameRepository gameRepository;
 
-    public LocationDto addLocation(Integer userId, LocationInfo locationCreateDto) {
+    public Location addLocation(Integer userId, LocationInfo locationCreateDto) {
         Location location = locationMapper.toLocation(locationCreateDto);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("user Id ", userId));
@@ -55,9 +55,7 @@ public class LocationService {
         location.setCounty(county);
         location.setDateAdded(LocalDate.now());
 
-        Location savedLocation = locationRepository.save(location);
-
-        return locationMapper.toLocationDto(savedLocation);
+        return locationRepository.save(location);
     }
 
 

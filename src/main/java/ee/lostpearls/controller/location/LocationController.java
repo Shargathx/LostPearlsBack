@@ -1,12 +1,11 @@
 package ee.lostpearls.controller.location;
 
-import ee.lostpearls.controller.location.dto.LocationDto;
-import ee.lostpearls.controller.location.dto.LocationInfo;
-import ee.lostpearls.controller.location.dto.LocationResponse;
-import ee.lostpearls.controller.location.dto.RandomLocationResponse;
+import ee.lostpearls.controller.location.dto.*;
 import ee.lostpearls.infrastructure.error.ApiError;
 import ee.lostpearls.persistence.game.GameRepository;
+import ee.lostpearls.persistence.location.Location;
 import ee.lostpearls.persistence.location.LocationMapper;
+import ee.lostpearls.persistence.location.LocationPostResponseMapper;
 import ee.lostpearls.persistence.location.LocationRepository;
 import ee.lostpearls.service.LocationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,14 +27,17 @@ public class LocationController {
     private final LocationRepository locationRepository;
     private final GameRepository gameRepository;
     private final LocationMapper locationMapper;
+    private final LocationPostResponseMapper locationPostResponseMapper;
 
     @PostMapping("/location")
     @Operation(summary = "Uue asukoha lisamine")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "480", description = "Selline asukoht on juba olemas", content = @Content(schema = @Schema(implementation = ApiError.class)))})
-    public LocationDto addLocation(@RequestParam Integer userId, @RequestBody LocationInfo locationInfo) {
-        return locationService.addLocation(userId, locationInfo);
+    public LocationPostResponse addLocation(@RequestParam Integer userId, @RequestBody LocationInfo locationInfo) {
+        Location locationDto = locationService.addLocation(userId, locationInfo);
+        return locationPostResponseMapper.toResponse(locationDto);
+
     }
 
 //    @GetMapping("/location/check-duplicate")
