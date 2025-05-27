@@ -1,10 +1,7 @@
 package ee.lostpearls.infrastructure;
 
 import ee.lostpearls.infrastructure.error.ApiError;
-import ee.lostpearls.infrastructure.exception.DataNotFoundException;
-import ee.lostpearls.infrastructure.exception.ForbiddenException;
-import ee.lostpearls.infrastructure.exception.ForeignKeyNotFoundException;
-import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
+import ee.lostpearls.infrastructure.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +21,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(exception.getMessage());
         apiError.setErrorCode(exception.getErrorCode());
         return new ResponseEntity<>(apiError, HttpStatus.FORBIDDEN);
+    }
+    @ExceptionHandler
+    public ResponseEntity<ApiError> duplicateLocationHandler(DuplicateLocationException exception) {
+        ApiError apiError = new ApiError();
+        apiError.setMessage(exception.getMessage());
+        apiError.setErrorCode(exception.getErrorCode());
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler

@@ -36,11 +36,11 @@ public class Location {
     @Column(name = "name", nullable = false)
     private String locationName;
 
-    @Column(name = "long", precision = 18, scale = 15)
+    @Column(name = "longField", precision = 18, scale = 15)
     private BigDecimal longField;
 
-    @Column(name = "lat", precision = 18, scale = 15)
-    private BigDecimal lat;
+    @Column(name = "latField", precision = 18, scale = 15)
+    private BigDecimal latField;
 
     @NotNull
     @Column(name = "status", nullable = false, length = Integer.MAX_VALUE)

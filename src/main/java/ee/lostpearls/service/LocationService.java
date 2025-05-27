@@ -5,6 +5,7 @@ import ee.lostpearls.controller.location.dto.LocationInfo;
 import ee.lostpearls.controller.location.dto.LocationResponse;
 import ee.lostpearls.infrastructure.error.Error;
 import ee.lostpearls.infrastructure.exception.DataNotFoundException;
+import ee.lostpearls.infrastructure.exception.DuplicateLocationException;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
 import ee.lostpearls.persistence.county.County;
 import ee.lostpearls.persistence.county.CountyRepository;
@@ -36,8 +37,13 @@ public class LocationService {
         Location location = locationMapper.toLocation(locationDto);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("user Id ", userId));
-        County county = countyRepository.findById(locationDto.getCountyId())
+        County county = countyRepository.findCountyById(locationDto.getCountyId())
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("county Id ", locationDto.getCountyId()));
+
+        boolean locationExists = locationRepository.locationExistsByNameAndCounty(locationDto.getLocationName(), county.getId());
+        if (locationExists) {
+            throw new DuplicateLocationException();
+        }
 
         location.setUser(user);
         location.setCounty(county);
@@ -45,6 +51,7 @@ public class LocationService {
 
         locationRepository.save(location);
     }
+
 
     public LocationInfo findLocation(Integer locationId) {
         Location location = locationRepository.findById(locationId)
@@ -65,6 +72,7 @@ public class LocationService {
         return locationDtos;
     }
 
+
     public List<LocationResponse> findAllLocationsByUserId(Integer userId) {
         List<Location> locations = locationRepository.findLocationByUserIdAndStatus(userId, LOCATION_ADDED.getCode());
         if (locations.isEmpty()) {
@@ -74,14 +82,13 @@ public class LocationService {
     }
 
 
-    public Location updateLocation(Integer locationId, LocationDto locationDto) {
+    public void updateLocation(Integer locationId, LocationDto locationDto) {
         Location location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("locationId ", locationId));
-        County county = countyRepository.findById(locationDto.getCountyId()).orElseThrow(() -> new PrimaryKeyNotFoundException("countyId ", locationDto.getCountyId()));
+        County county = countyRepository.findCountyById(locationDto.getCountyId()).orElseThrow(() -> new PrimaryKeyNotFoundException("countyId ", locationDto.getCountyId()));
         location.setCounty(county);
         locationMapper.partialUpdate(location, locationDto);
         locationRepository.save(location);
-        return location;
     }
 
 
@@ -91,6 +98,15 @@ public class LocationService {
         location.setStatus(LocationStatus.LOCATION_DELETED.getCode());
         locationRepository.save(location);
     }
+
+
+// HELPER METHODS
+
+    private double round(double value, int places) {
+        double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale;
+    }
+
 
 }
 
