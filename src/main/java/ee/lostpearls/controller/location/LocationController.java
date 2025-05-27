@@ -3,7 +3,10 @@ package ee.lostpearls.controller.location;
 import ee.lostpearls.controller.location.dto.LocationDto;
 import ee.lostpearls.controller.location.dto.LocationInfo;
 import ee.lostpearls.controller.location.dto.LocationResponse;
+import ee.lostpearls.controller.location.dto.RandomLocationResponse;
 import ee.lostpearls.infrastructure.error.ApiError;
+import ee.lostpearls.persistence.game.GameRepository;
+import ee.lostpearls.persistence.location.LocationMapper;
 import ee.lostpearls.persistence.location.LocationRepository;
 import ee.lostpearls.service.LocationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +26,8 @@ public class LocationController {
 
     private final LocationService locationService;
     private final LocationRepository locationRepository;
+    private final GameRepository gameRepository;
+    private final LocationMapper locationMapper;
 
     @PostMapping("/location")
     @Operation(summary = "Uue asukoha lisamine")
@@ -67,6 +72,11 @@ public class LocationController {
     @DeleteMapping("/location")
     public void removeLocation(@RequestParam Integer locationId) {
         locationService.removeLocation(locationId);
+    }
+
+    @GetMapping("/random_location")
+    public RandomLocationResponse getRandomCountyLocation(@RequestParam Integer countyId, Integer userId) {
+        return locationService.getRandomCountyLocation(countyId, userId);
     }
 
 
