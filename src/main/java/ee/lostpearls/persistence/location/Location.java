@@ -31,16 +31,21 @@ public class Location {
     @JoinColumn(name = "county_id", nullable = false)
     private County county;
 
+
     @Size(max = 255)
     @NotNull
     @Column(name = "name", nullable = false)
-    private String locationName;
+    private String name;
 
-    @Column(name = "longField", precision = 18, scale = 15)
-    private BigDecimal longField;
+    @Column(name = "longfield", precision = 18, scale = 15)
+    private BigDecimal longfield;
 
-    @Column(name = "latField", precision = 18, scale = 15)
-    private BigDecimal latField;
+    @Column(name = "latfield", precision = 18, scale = 15)
+    private BigDecimal latfield;
+
+    @NotNull
+    @Column(name = "zoom_level", nullable = false)
+    private Integer zoomLevel;
 
     @NotNull
     @Column(name = "status", nullable = false, length = Integer.MAX_VALUE)

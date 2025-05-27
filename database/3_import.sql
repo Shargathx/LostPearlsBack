@@ -29,18 +29,18 @@ VALUES (default, 'Võrumaa', 27.01167295686901, 57.83890342754204, 11);
 
 
 
-INSERT INTO pearls.location (id, user_id, county_id, name, longField, latField, zoomLevel, status, teaser,
+INSERT INTO pearls.location (id, user_id, county_id, name, longField, latField,  zoom_level, status, teaser,
                              extended_info, question, answer,
                              date_added)
 VALUES (default, 1, 1, 'SomeName', 50.1623, 50.7977, 0, 'A', 'teaser here', 'põhjalik info siia',
         'mitu jalga on toolil',
         '4', '2000-01-01');
-INSERT INTO pearls.location (id, user_id, county_id, name, longField, latField, zoomlevel, status, teaser,
+INSERT INTO pearls.location (id, user_id, county_id, name, longField, latField,  zoom_level, status, teaser,
                              extended_info, question, answer,
                              date_added)
 VALUES (default, 2, 3, 'SomeOtherName', 47.5701, 48.0484, 0, 'B', 'teaser here', 'põhjalik info siia_kaks',
         'kanamuna või kana', 'kana', '2015-05-05');
-INSERT INTO pearls.location (id, user_id, county_id, name, longField, latField, zoomlevel, status, teaser,
+INSERT INTO pearls.location (id, user_id, county_id, name, longField, latField,  zoom_level, status, teaser,
                              extended_info, question, answer,
                              date_added)
 VALUES (default, 3, 5, 'SomeThirdName', 32.8431, 31.9871, 0, 'C', 'teaser here', 'põhjalik info siia_kolm',

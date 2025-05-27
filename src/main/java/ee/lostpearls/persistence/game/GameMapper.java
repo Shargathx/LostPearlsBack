@@ -14,7 +14,7 @@ public interface GameMapper {
 
 
     @Mapping(source = "location.id", target = "locationId")
-    @Mapping(source = "location.locationName", target = "locationName")
+    @Mapping(source = "location.name", target = "locationName")
     @Mapping(source = "location.teaser", target = "teaserInfo")
     @Mapping(source = "location.extendedInfo", target = "extendedInfo")
     @Mapping(source = "location.question", target = "question")
