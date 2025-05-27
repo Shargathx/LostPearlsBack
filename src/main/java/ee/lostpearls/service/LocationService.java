@@ -33,14 +33,14 @@ public class LocationService {
     private final CountyRepository countyRepository;
     private final LocationRepository locationRepository;
 
-    public void addLocation(Integer userId, LocationDto locationDto) {
-        Location location = locationMapper.toLocation(locationDto);
+    public LocationDto addLocation(Integer userId, LocationInfo locationCreateDto) {
+        Location location = locationMapper.toLocation(locationCreateDto);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("user Id ", userId));
-        County county = countyRepository.findCountyById(locationDto.getCountyId())
-                .orElseThrow(() -> new PrimaryKeyNotFoundException("county Id ", locationDto.getCountyId()));
+        County county = countyRepository.findCountyById(locationCreateDto.getCountyId())
+                .orElseThrow(() -> new PrimaryKeyNotFoundException("county Id ", locationCreateDto.getCountyId()));
 
-        boolean locationExists = locationRepository.locationExistsByNameAndCounty(locationDto.getLocationName(), county.getId());
+        boolean locationExists = locationRepository.locationExistsByNameAndCounty(locationCreateDto.getLocationName(), county.getId());
         if (locationExists) {
             throw new DuplicateLocationException();
         }
@@ -49,7 +49,9 @@ public class LocationService {
         location.setCounty(county);
         location.setDateAdded(LocalDate.now());
 
-        locationRepository.save(location);
+        Location savedLocation = locationRepository.save(location);
+
+        return locationMapper.toLocationDto(savedLocation);
     }
 
 

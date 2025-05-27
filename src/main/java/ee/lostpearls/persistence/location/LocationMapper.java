@@ -18,12 +18,23 @@ public interface LocationMapper {
     Location toLocation(LocationDto locationDto);
 
 
+    @Mapping(source = "county.id", target = "countyId")
+    @Mapping(source = "locationName", target = "locationName")
+    @Mapping(source = "longField", target = "longitude")
+    @Mapping(source = "latField", target = "latitude")
+    @Mapping(source = "teaser", target = "teaser")
+    @Mapping(source = "extendedInfo", target = "extendedInfo")
+    @Mapping(source = "question", target = "question")
+    @Mapping(source = "answer", target = "answer")
+    LocationDto toLocationDto(Location location);
+
+
     @Mapping(source = "county.name", target = "countyName")
     @Mapping(source = "county.id", target = "countyId")
     @Mapping(source = "longField", target = "longitude")
     @Mapping(source = "latField", target = "latitude")
+    @Mapping(source = "zoomlevel", target = "zoomlevel")
     LocationInfo toLocationInfo(Location location);
-
     List<LocationInfo> toLocationInfos(List<Location> locations);
 
 
@@ -34,15 +45,12 @@ public interface LocationMapper {
     Location partialUpdate(@MappingTarget Location location, LocationDto locationDto);
 
 
-
     @Mapping(source = "county.name", target = "countyName")
     @Mapping(source = "longField", target = "longitude")
     @Mapping(source = "latField", target = "latitude")
+    @Mapping(source = "zoomlevel", target = "zoomlevel")
     LocationResponse toLocationResponse(Location location);
     List<LocationResponse> toLocationResponses(List<Location> locations);
-
-
-
 
 
 }

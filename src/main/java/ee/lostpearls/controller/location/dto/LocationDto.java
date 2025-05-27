@@ -10,6 +10,7 @@ public class LocationDto {
     private String locationName; // required field
     private BigDecimal longitude; // required field
     private BigDecimal latitude; // required field
+    private Integer zoomlevel;
     private String teaser; // required field
     private String extendedInfo; // required field
     private String question; // required field

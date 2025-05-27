@@ -14,6 +14,7 @@ public class LocationResponse {
     private String countyName;
     private BigDecimal longitude;
     private BigDecimal latitude;
+    private Integer zoomlevel;
     private String teaser;
     private String extendedInfo;
     private String question;

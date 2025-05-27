@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +29,8 @@ public class LocationController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "480", description = "Selline asukoht on juba olemas", content = @Content(schema = @Schema(implementation = ApiError.class)))})
-    public void addLocation(@RequestParam Integer userId, @RequestBody LocationInfo locationInfo) {
-        locationService.addLocation(userId, locationInfo);
+    public LocationDto addLocation(@RequestParam Integer userId, @RequestBody LocationInfo locationInfo) {
+        return locationService.addLocation(userId, locationInfo);
     }
 
 //    @GetMapping("/location/check-duplicate")

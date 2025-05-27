@@ -14,32 +14,32 @@ INSERT INTO pearls."user" (id, role_id, username, password, email, status)
 VALUES (default, 2, '', '', 'mikk@mikk.com', 'D');
 
 
-INSERT INTO pearls.county (id, name, longField, latField, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
 VALUES (default, 'Harjumaa', 24.742995401694774, 59.413590862727105, 9);
-INSERT INTO pearls.county (id, name, longField, latField, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
 VALUES (default, 'Hiiumaa', 22.6215092879, 58.934989263, 10);
-INSERT INTO pearls.county (id, name, longField, latField, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
 VALUES (default, 'Tartu', 26.725891046226, 58.370620775, 9);
-INSERT INTO pearls.county (id, name, longField, latField, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
 VALUES (default, 'Rapla', 24.800537042319, 59.009625071, 10);
-INSERT INTO pearls.county (id, name, longField, latField, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
 VALUES (default, 'Viljandi', 25.581115689, 58.381804461, 10);
-INSERT INTO pearls.county (id, name, longField, latField, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
 VALUES (default, 'Võrumaa', 27.01167295686901, 57.83890342754204, 11);
 
 
 
-INSERT INTO pearls.location (id, user_id, county_id, name, longField, latField, status, teaser, extended_info, question, answer,
+INSERT INTO pearls.location (id, user_id, county_id, name, longfield, latfield, zoomlevel, status, teaser, extended_info, question, answer,
                              date_added)
-VALUES (default, 1, 1, 'SomeName', 50.1623, 50.7977, 'A', 'teaser here', 'põhjalik info siia', 'mitu jalga on toolil',
+VALUES (default, 1, 1, 'SomeName', 50.1623, 50.7977, 10, 'A', 'teaser here', 'põhjalik info siia', 'mitu jalga on toolil',
         '4', '2000-01-01');
-INSERT INTO pearls.location (id, user_id, county_id, name, longField, latField, status, teaser, extended_info, question, answer,
+INSERT INTO pearls.location (id, user_id, county_id, name, longfield, latfield, zoomlevel, status, teaser, extended_info, question, answer,
                              date_added)
-VALUES (default, 2, 3, 'SomeOtherName', 47.5701, 48.0484, 'B', 'teaser here', 'põhjalik info siia_kaks',
+VALUES (default, 2, 3, 'SomeOtherName', 47.5701, 48.0484, 8, 'D', 'teaser here', 'põhjalik info siia_kaks',
         'kanamuna või kana', 'kana', '2015-05-05');
-INSERT INTO pearls.location (id, user_id, county_id, name, longField, latField, status, teaser, extended_info, question, answer,
+INSERT INTO pearls.location (id, user_id, county_id, name, longfield, latfield,zoomlevel,  status, teaser, extended_info, question, answer,
                              date_added)
-VALUES (default, 3, 5, 'SomeThirdName', 32.8431, 31.9871, 'C', 'teaser here', 'põhjalik info siia_kolm',
+VALUES (default, 3, 5, 'SomeThirdName', 32.8431, 31.9871, 12, 'A', 'teaser here', 'põhjalik info siia_kolm',
         'mis on väiksem kui aatom', 'ma ei tea', '2020-07-11');
 
 
