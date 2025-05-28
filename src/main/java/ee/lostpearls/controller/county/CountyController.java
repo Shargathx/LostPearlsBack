@@ -1,7 +1,7 @@
 package ee.lostpearls.controller.county;
 
 import ee.lostpearls.controller.county.dto.CountyInfo;
-import ee.lostpearls.persistence.county.County;
+import ee.lostpearls.controller.county.dto.CountyResponse;
 import ee.lostpearls.service.CountyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +22,9 @@ public class CountyController {
         return countyInfos;
     }
 
-
-    @GetMapping("/county/{id}")
-    public County getCounty(@PathVariable Integer id) {
-        return countyService.getCounty(id);
-
+    @GetMapping("/county/{countyId}")
+    public CountyResponse getCounty(@PathVariable Integer countyId) {
+        return countyService.getCounty(countyId);
     }
 
 }

@@ -14,17 +14,17 @@ INSERT INTO pearls."user" (id, role_id, username, password, email, status)
 VALUES (default, 2, '', '', 'mikk@mikk.com', 'D');
 
 
-INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoomlevel)
 VALUES (default, 'Harjumaa', 24.742995401694774, 59.413590862727105, 9);
-INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoomlevel)
 VALUES (default, 'Hiiumaa', 22.6215092879, 58.934989263, 10);
-INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoomlevel)
 VALUES (default, 'Tartu', 26.725891046226, 58.370620775, 9);
-INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoomlevel)
 VALUES (default, 'Rapla', 24.800537042319, 59.009625071, 10);
-INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoomlevel)
 VALUES (default, 'Viljandi', 25.581115689, 58.381804461, 10);
-INSERT INTO pearls.county (id, name, longfield, latfield, zoom_level)
+INSERT INTO pearls.county (id, name, longfield, latfield, zoomlevel)
 VALUES (default, 'Võrumaa', 27.01167295686901, 57.83890342754204, 11);
 
 
@@ -45,27 +45,27 @@ VALUES (default, 3, 5, 'SomeThirdName', 32.8431, 31.9871, 12, 'A', 'teaser here'
 
 
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2005-05-07 12:15:10.000000', null, 'GS ', null, 0);
+VALUES (default, 1, 1, '2005-05-07 12:15:10.000000', null, 'GS', null, 0);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2005-05-07 12:15:10.000000', null, 'GS ', null, 0);
+VALUES (default, 1, 1, '2005-05-07 12:15:10.000000', null, 'GS', null, 0);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC ', '2001-05-05', 5);
+VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC', '2001-05-05', 5);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC ', '2001-05-05', 5);
+VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC', '2001-05-05', 5);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC ', '2001-05-05', 5);
+VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC', '2001-05-05', 5);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC ', '2001-05-05', 5);
+VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC', '2001-05-05', 5);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC ', '2001-05-05', 5);
+VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC', '2001-05-05', 5);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC ', '2001-05-05', 5);
+VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC', '2001-05-05', 5);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC ', '2001-05-05', 5);
+VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC', '2001-05-05', 5);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC ', '2001-05-05', 5);
+VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC', '2001-05-05', 5);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC ', '2001-05-05', 5);
+VALUES (default, 1, 1, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.000000', 'GC', '2001-05-05', 5);
 
 INSERT INTO pearls.hint (id, location_id, hint)
 VALUES (default, 1, 'Tekst et anda hint');

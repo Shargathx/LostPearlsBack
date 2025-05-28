@@ -27,7 +27,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError apiError = new ApiError();
         apiError.setMessage(exception.getMessage());
         apiError.setErrorCode(exception.getErrorCode());
-        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_ACCEPTABLE);
     }
 
     @ExceptionHandler

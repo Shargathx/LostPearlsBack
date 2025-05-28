@@ -14,9 +14,9 @@ CREATE TABLE answer (
 CREATE TABLE county (
                         id serial NOT NULL,
                         name varchar(50) NOT NULL,
-                        longField numeric(9,6) NOT NULL,
-                        latField numeric(9,6) NOT NULL,
-                        zoom_level integer NOT NULL,
+                        longfield numeric(9,6) NOT NULL,
+                        latfield numeric(9,6) NOT NULL,
+                        zoomlevel integer NOT NULL,
                         CONSTRAINT county_pk PRIMARY KEY (id)
 );
 

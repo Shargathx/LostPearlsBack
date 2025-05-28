@@ -32,6 +32,6 @@ public class County {
     private BigDecimal latfield;
 
     @NotNull
-    @Column(name = "zoom_level", nullable = false)
-    private Integer zoomLevel;
+    @Column(name = "zoomlevel", nullable = false)
+    private Integer zoomlevel;
 }

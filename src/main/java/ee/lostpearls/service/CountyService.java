@@ -1,6 +1,7 @@
 package ee.lostpearls.service;
 
 import ee.lostpearls.controller.county.dto.CountyInfo;
+import ee.lostpearls.controller.county.dto.CountyResponse;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
 import ee.lostpearls.persistence.county.County;
 import ee.lostpearls.persistence.county.CountyMapper;
@@ -24,8 +25,8 @@ public class CountyService {
         return countyInfos;
     }
 
-    public County getCounty(Integer id) {
-        County county = countyRepository.findCountyById(id).orElseThrow(() -> new PrimaryKeyNotFoundException("id", id));
-        return county;
+    public CountyResponse getCounty(Integer countyId) {
+        County county = countyRepository.findCountyById(countyId).orElseThrow(() -> new PrimaryKeyNotFoundException("countyId", countyId));
+        return countyMapper.toCountyResponse(county);
     }
 }

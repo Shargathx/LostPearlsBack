@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 public class LocationDto {
     private Integer countyId; // required field
     private String locationName; // required field
-    private BigDecimal longitude; // required field
     private BigDecimal latitude; // required field
+    private BigDecimal longitude; // required field
     private Integer zoomlevel;
     private String teaser; // required field
     private String extendedInfo; // required field

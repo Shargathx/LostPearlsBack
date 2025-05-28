@@ -8,6 +8,7 @@ import ee.lostpearls.persistence.user.UserMapper;
 import ee.lostpearls.status.LocationStatus;
 import org.mapstruct.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {UserMapper.class}, imports = LocationStatus.class)
@@ -31,12 +32,16 @@ public interface LocationMapper {
     @Mapping(source = "answer", target = "answer")
     LocationDto toLocationDto(Location location);
 
-
-    @Mapping(source = "county.name", target = "countyName")
     @Mapping(source = "county.id", target = "countyId")
-    @Mapping(source = "longField", target = "longitude")
+    @Mapping(source = "county.name", target = "countyName")
+    @Mapping(source = "name", target = "locationName")
     @Mapping(source = "latField", target = "latitude")
+    @Mapping(source = "longField", target = "longitude")
     @Mapping(source = "zoomlevel", target = "zoomlevel")
+    @Mapping(source = "teaser", target = "teaser")
+    @Mapping(source = "extendedInfo", target = "extendedInfo")
+    @Mapping(source = "question", target = "question")
+    @Mapping(source = "answer", target = "answer")
     LocationInfo toLocationInfo(Location location);
 
     List<LocationInfo> toLocationInfos(List<Location> locations);

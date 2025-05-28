@@ -7,6 +7,7 @@ import ee.lostpearls.controller.location.dto.RandomLocationResponse;
 import ee.lostpearls.infrastructure.error.Error;
 import ee.lostpearls.infrastructure.exception.DataNotFoundException;
 import ee.lostpearls.infrastructure.exception.DuplicateLocationException;
+import ee.lostpearls.infrastructure.exception.ForeignKeyNotFoundException;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
 import ee.lostpearls.persistence.county.County;
 import ee.lostpearls.persistence.county.CountyRepository;
@@ -39,32 +40,16 @@ public class LocationService {
     private final LocationRepository locationRepository;
     private final GameRepository gameRepository;
 
-    public Location addLocation(Integer userId, LocationInfo locationCreateDto) {
-        Location location = locationMapper.toLocation(locationCreateDto);
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new PrimaryKeyNotFoundException("user Id ", userId));
-        County county = countyRepository.findCountyById(locationCreateDto.getCountyId())
-                .orElseThrow(() -> new PrimaryKeyNotFoundException("county Id ", locationCreateDto.getCountyId()));
-
-        boolean locationExists = locationRepository.locationExistsByNameAndCounty(locationCreateDto.getLocationName(), county.getId());
-        if (locationExists) {
-            throw new DuplicateLocationException();
-        }
-
-        location.setUser(user);
-        location.setCounty(county);
-        location.setDateAdded(LocalDate.now());
-
-        return locationRepository.save(location);
+    public Integer addLocation(Integer userId, LocationInfo locationInfo) {
+        validateLocationAvailable(locationInfo);
+        Location location = createAndSaveLocation(userId, locationInfo);
+        return location.getId();
     }
 
 
     public LocationInfo findLocation(Integer locationId) {
-        Location location = locationRepository.findById(locationId)
-                .orElseThrow(() -> new PrimaryKeyNotFoundException("locationId ", locationId));
-        if (!location.getStatus().equals(LOCATION_ADDED.getCode())) {
-            throw new PrimaryKeyNotFoundException("locationId ", locationId);
-        }
+        Location location = locationRepository.findLocationBy(locationId, LOCATION_ADDED.getCode())
+                .orElseThrow(() -> new DataNotFoundException(Error.NO_LOCATIONS_FOUND.getMessage(), Error.NO_LOCATIONS_FOUND.getErrorCode()));
         return locationMapper.toLocationInfo(location);
     }
 
@@ -135,9 +120,26 @@ public class LocationService {
 
 // HELPER METHODS
 
-    private double round(double value, int places) {
-        double scale = Math.pow(10, places);
-        return Math.round(value * scale) / scale;
+    private Location createAndSaveLocation(Integer userId, LocationInfo locationInfo) {
+        County county = countyRepository.findCountyById(locationInfo.getCountyId())
+                .orElseThrow(() -> new ForeignKeyNotFoundException("countyId ", locationInfo.getCountyId()));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ForeignKeyNotFoundException("userId", userId));
+
+        Location location = locationMapper.toLocation(locationInfo);
+        location.setUser(user);
+        location.setCounty(county);
+        location.setDateAdded(LocalDate.now());
+        locationRepository.save(location);
+        return location;
+    }
+
+    private void validateLocationAvailable(LocationInfo locationInfo) {
+        boolean locationExists = locationRepository.locationExistsByNameAndCounty(locationInfo.getLocationName(), locationInfo.getCountyId());
+        if (locationExists) {
+            throw new DuplicateLocationException(Error.LOCATION_UNAVAILABLE.getMessage(), Error.LOCATION_UNAVAILABLE.getErrorCode());
+        }
     }
 
 

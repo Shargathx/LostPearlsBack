@@ -2,11 +2,6 @@ package ee.lostpearls.controller.location;
 
 import ee.lostpearls.controller.location.dto.*;
 import ee.lostpearls.infrastructure.error.ApiError;
-import ee.lostpearls.persistence.game.GameRepository;
-import ee.lostpearls.persistence.location.Location;
-import ee.lostpearls.persistence.location.LocationMapper;
-import ee.lostpearls.persistence.location.LocationPostResponseMapper;
-import ee.lostpearls.persistence.location.LocationRepository;
 import ee.lostpearls.service.LocationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,19 +19,16 @@ import java.util.List;
 public class LocationController {
 
     private final LocationService locationService;
-    private final LocationRepository locationRepository;
-    private final GameRepository gameRepository;
-    private final LocationMapper locationMapper;
-    private final LocationPostResponseMapper locationPostResponseMapper;
 
     @PostMapping("/location")
-    @Operation(summary = "Uue asukoha lisamine")
+    @Operation(summary = "Uue asukoha lisamine, teenus tagastab lisatud asukoha 'locationId'")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "480", description = "Selline asukoht on juba olemas", content = @Content(schema = @Schema(implementation = ApiError.class)))})
-    public LocationPostResponse addLocation(@RequestParam Integer userId, @RequestBody LocationInfo locationInfo) {
-        Location locationDto = locationService.addLocation(userId, locationInfo);
-        return locationPostResponseMapper.toResponse(locationDto);
+            @ApiResponse(responseCode = "404", description = "Selline asukoht juba eksisteerib (errorCode 333)", content = @Content(schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "406", description = "Foreign key not found: '{fieldName}' with value: '{fieldValue} (errorCode 666)", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
+    public Integer addLocation(@RequestParam Integer userId, @RequestBody LocationInfo locationInfo) {
+        return locationService.addLocation(userId, locationInfo);
 
     }
 
@@ -64,8 +56,8 @@ public class LocationController {
     }
 
 
-    @PutMapping("/location")
-    public void updateLocation(@RequestParam Integer locationId, @RequestBody LocationDto locationDto) {
+    @PutMapping("/location/{locationId}")
+    public void updateLocation(@PathVariable Integer locationId, @RequestBody LocationDto locationDto) {
         locationService.updateLocation(locationId, locationDto);
 
     }
