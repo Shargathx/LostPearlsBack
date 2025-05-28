@@ -1,12 +1,15 @@
 package ee.lostpearls.controller.game.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Data
-public class GameSetupDto {
-    private Integer locationId;
-    private Integer userId;
+@NoArgsConstructor
+@AllArgsConstructor
+public class GameStartDto {
+
     private String gameStatus;
     private Long gameStartMilliseconds;
-    private Integer points;
 }

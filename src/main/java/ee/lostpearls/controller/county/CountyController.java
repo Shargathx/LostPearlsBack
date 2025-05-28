@@ -26,5 +26,10 @@ public class CountyController {
     public CountyResponse getCounty(@PathVariable Integer countyId) {
         return countyService.getCounty(countyId);
     }
+    @GetMapping("/county/{locationId}")
+    public CountyInfo getCountyByLocation(@PathVariable Integer locationId) {
+        return countyService.findCountyByLocationId(locationId);
+    }
+
 
 }

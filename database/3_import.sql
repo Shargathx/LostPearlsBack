@@ -45,7 +45,7 @@ VALUES (default, 3, 5, 'SomeThirdName', 32.8431, 31.9871, 12, 'A', 'teaser here'
 
 
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
-VALUES (default, 1, 1, '2005-05-07 12:15:10.000000', null, 'GS', null, 0);
+VALUES (default, 1, 1, null, null, 'GA', null, 0);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
 VALUES (default, 1, 1, '2005-05-07 12:15:10.000000', null, 'GS', null, 0);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)

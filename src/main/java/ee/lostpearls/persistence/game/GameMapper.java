@@ -1,18 +1,19 @@
 package ee.lostpearls.persistence.game;
 
 import ee.lostpearls.controller.game.dto.GameInfo;
-import ee.lostpearls.controller.game.dto.GameSetupDto;
+import ee.lostpearls.controller.game.dto.GameStartDto;
 import ee.lostpearls.status.GameStatus;
 import org.mapstruct.*;
-import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.time.ZoneId;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, imports = {GameStatus.class})
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, imports = {GameStatus.class, Instant.class, ZoneId.class})
 
 public interface GameMapper {
 
 
+    @Mapping(source = "location.county.name", target = "countyName")
     @Mapping(source = "location.id", target = "locationId")
     @Mapping(source = "location.name", target = "locationName")
     @Mapping(source = "location.teaser", target = "teaserInfo")
@@ -24,8 +25,11 @@ public interface GameMapper {
     @Mapping(source = "status", target = "gameStatus")
     @Mapping(source = "startTime", target = "gameStartMilliseconds")
     @Mapping(source = "endTime", target = "gameEndMilliseconds")
-    // @Mapping(pilt/pildid tulevad pildi teenusest, target = "imageData")
-    // @Mapping( hint tuleb eraldi teenusega hing v game_hint tabelist, target = "hint")
+    @Mapping(source = "location.latfield", target = "lat")
+    @Mapping(source = "location.longfield", target = "lng")
+    @Mapping(constant = "", target = "imageData")
+    @Mapping(constant = "14", target = "zoomLevel")
+        // @Mapping( hint tuleb eraldi teenusega hing v game_hint tabelist, target = "hint")
     GameInfo toGameInfo(Game game);
 
     /*/ Converts Instant to Long(timestamp in millisec)
@@ -40,7 +44,4 @@ public interface GameMapper {
     }
 
 
-    @Mapping(constant = "0", target = "points")
-    @Mapping(expression = "java(GameStatus.GAME_ADDED.getCode())", target = "status")
-    Game toGame(GameSetupDto gameSetupDto);
 }

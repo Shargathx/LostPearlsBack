@@ -27,7 +27,7 @@ CREATE TABLE game (
                       user_id int  NOT NULL,
                       start_time timestamp  NULL,
                       end_time timestamp  NULL,
-                      status char(3)  NOT NULL,
+                      status char(2)  NOT NULL,
                       complete_date date  NULL,
                       points int  NOT NULL,
                       CONSTRAINT game_pk PRIMARY KEY (id)

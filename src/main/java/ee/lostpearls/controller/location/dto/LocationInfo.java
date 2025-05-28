@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class LocationInfo extends LocationDto {
     private String countyName;
 }
