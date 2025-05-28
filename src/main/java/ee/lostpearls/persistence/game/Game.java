@@ -40,7 +40,7 @@ public class Game {
 
     @Size(max = 3)
     @NotNull
-    @Column(name = "status", nullable = false, length = 3)
+    @Column(name = "status", nullable = false, length = 2)
     private String status;
 
     @Column(name = "complete_date")

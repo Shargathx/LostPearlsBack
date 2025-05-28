@@ -1,16 +1,14 @@
 package ee.lostpearls.persistence.game;
 
 import ee.lostpearls.controller.game.dto.GameInfo;
-import ee.lostpearls.controller.game.dto.GameSetupDto;
+import ee.lostpearls.controller.game.dto.GameStartDto;
 import ee.lostpearls.status.GameStatus;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.time.Instant;
+import java.time.ZoneId;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, imports = {GameStatus.class})
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, imports = {GameStatus.class, Instant.class, ZoneId.class})
 
 public interface GameMapper {
 
@@ -46,7 +44,4 @@ public interface GameMapper {
     }
 
 
-    @Mapping(constant = "0", target = "points")
-    @Mapping(expression = "java(GameStatus.GAME_ADDED.getCode())", target = "status")
-    Game toGame(GameSetupDto gameSetupDto);
 }
