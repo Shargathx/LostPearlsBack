@@ -36,12 +36,6 @@ public class Location {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "longfield", precision = 18, scale = 15)
-    private BigDecimal longField;
-
-    @Column(name = "latfield", precision = 18, scale = 15)
-    private BigDecimal latField;
-
     @NotNull
     @Column(name = "zoomlevel", nullable = false)
     private Integer zoomlevel;
@@ -73,5 +67,11 @@ public class Location {
     @NotNull
     @Column(name = "date_added", nullable = false)
     private LocalDate dateAdded;
+
+    @Column(name = "longfield", precision = 18, scale = 15)
+    private BigDecimal longfield;
+
+    @Column(name = "latfield", precision = 18, scale = 15)
+    private BigDecimal latfield;
 
 }
