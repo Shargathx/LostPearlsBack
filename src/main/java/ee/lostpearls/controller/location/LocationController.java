@@ -51,23 +51,46 @@ public class LocationController {
 
 
     @GetMapping("/locations/all")
+    @Operation(summary = "Leiab kõik asukohad vastavalt userId-le")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "404", description = "Selline asukoht juba eksisteerib (errorCode 333)", content = @Content(schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "406", description = "Foreign key not found: '{fieldName}' with value: '{fieldValue} (errorCode 666)", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
     public List<LocationResponse> findAllLocationsByUserId(@RequestParam Integer userId) {
         return locationService.findAllLocationsByUserId(userId);
     }
 
 
     @PutMapping("/location/{locationId}")
+    @Operation(summary = "Lubab kasutajal asukoha infot muuta")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "404", description = "Selline asukoht juba eksisteerib (errorCode 333)", content = @Content(schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "406", description = "Foreign key not found: '{fieldName}' with value: '{fieldValue} (errorCode 666)", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
     public void updateLocation(@PathVariable Integer locationId, @RequestBody LocationDto locationDto) {
         locationService.updateLocation(locationId, locationDto);
 
     }
 
-
+    @Operation(summary = "Kustutab asukoha (Status A -> D)")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "404", description = "Selline asukoht juba eksisteerib (errorCode 333)", content = @Content(schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "406", description = "Foreign key not found: '{fieldName}' with value: '{fieldValue} (errorCode 666)", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
     @DeleteMapping("/location")
     public void removeLocation(@RequestParam Integer locationId) {
         locationService.removeLocation(locationId);
     }
 
+    @Operation(summary = "Annab vastuseks suvalise MÄNGIMATA mängu")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "404", description = "Selline asukoht juba eksisteerib (errorCode 333)", content = @Content(schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "406", description = "Foreign key not found: '{fieldName}' with value: '{fieldValue} (errorCode 666)", content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
     @GetMapping("/random_location")
     public RandomLocationResponse getRandomCountyLocation(@RequestParam Integer countyId, Integer userId) {
         return locationService.getRandomCountyLocation(countyId, userId);

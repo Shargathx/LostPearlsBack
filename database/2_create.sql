@@ -59,10 +59,10 @@ CREATE TABLE location (
                           latfield decimal(18,15)  NULL,
                           zoomlevel Int NOT NULL ,
                           status char(1)  NOT NULL,
-                          teaser varchar(1000)  NOT NULL,
-                          extended_info varchar(2000)  NOT NULL,
-                          question varchar(500)  NOT NULL,
-                          answer varchar(500)  NOT NULL,
+                          teaser varchar(1500)  NOT NULL,
+                          extended_info varchar(4500)  NOT NULL,
+                          question varchar(1000)  NOT NULL,
+                          answer varchar(1000)  NOT NULL,
                           date_added date  NOT NULL,
                           CONSTRAINT location_pk PRIMARY KEY (id)
 );
