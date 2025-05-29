@@ -1,4 +1,4 @@
-package ee.lostpearls.persistence.answer;
+package ee.lostpearls.persistence.keyword;
 
 import ee.lostpearls.persistence.location.Location;
 import jakarta.persistence.*;
@@ -10,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "answer", schema = "pearls")
-public class Answer {
+@Table(name = "keyword", schema = "pearls")
+public class Keyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

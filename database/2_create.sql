@@ -2,12 +2,12 @@
 -- Last modification date: 2025-05-16 13:24:41.97
 
 -- tables
--- Table: answer
-CREATE TABLE answer (
+-- Table: keyword
+CREATE TABLE keyword (
                         id serial  NOT NULL,
                         location_id int  NOT NULL,
                         keyword varchar(255)  NOT NULL,
-                        CONSTRAINT answer_pk PRIMARY KEY (id)
+                        CONSTRAINT keyword_pk PRIMARY KEY (id)
 );
 
 -- Table: county
@@ -62,7 +62,7 @@ CREATE TABLE location (
                           teaser varchar(1500)  NOT NULL,
                           extended_info varchar(4500)  NOT NULL,
                           question varchar(1000)  NOT NULL,
-                          answer varchar(1000)  NOT NULL,
+                          keyword varchar(1000)  NOT NULL,
                           date_added date  NOT NULL,
                           CONSTRAINT location_pk PRIMARY KEY (id)
 );
@@ -124,8 +124,8 @@ ALTER TABLE location_image ADD CONSTRAINT location_image_location
             INITIALLY IMMEDIATE
 ;
 
--- Reference: answer_location (table: answer)
-ALTER TABLE answer ADD CONSTRAINT answer_location
+-- Reference: keyword_location (table: keyword)
+ALTER TABLE keyword ADD CONSTRAINT keyword_location
     FOREIGN KEY (location_id)
         REFERENCES location (id)
         NOT DEFERRABLE

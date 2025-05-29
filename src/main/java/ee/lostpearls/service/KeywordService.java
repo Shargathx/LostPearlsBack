@@ -4,30 +4,28 @@ import ee.lostpearls.controller.keyword.dto.KeywordDto;
 import ee.lostpearls.controller.keyword.dto.KeywordInfo;
 import ee.lostpearls.infrastructure.exception.ForeignKeyNotFoundException;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
-import ee.lostpearls.persistence.answer.Answer;
-import ee.lostpearls.persistence.answer.AnswerMapper;
-import ee.lostpearls.persistence.answer.AnswerRepository;
+import ee.lostpearls.persistence.keyword.Keyword;
+import ee.lostpearls.persistence.keyword.KeywordMapper;
+import ee.lostpearls.persistence.keyword.KeywordRepository;
 import ee.lostpearls.persistence.location.Location;
 import ee.lostpearls.persistence.location.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class KeywordService {
 
 
-    private final AnswerRepository answerRepository;
-    private final AnswerMapper answerMapper;
+    private final KeywordRepository answerRepository;
+    private final KeywordMapper keywordMapper;
     private final LocationRepository locationRepository;
 
     public List<KeywordInfo> findAllKeywords(Integer locationId) {
-        List<Answer> keywordsBy = answerRepository.findKeywordsBy(locationId);
-        List<KeywordInfo> keywordInfos = answerMapper.toKeywordInfos(keywordsBy);
+        List<Keyword> keywordsBy = answerRepository.findKeywordsBy(locationId);
+        List<KeywordInfo> keywordInfos = keywordMapper.toKeywordInfos(keywordsBy);
         return keywordInfos;
     }
 
@@ -36,13 +34,13 @@ public class KeywordService {
     public void addKeyword(KeywordDto keywordDto) {
         Location location = locationRepository.findById(keywordDto.getLocationId())
                 .orElseThrow(() -> new ForeignKeyNotFoundException("locationId", keywordDto.getLocationId()));
-        Answer answer = answerMapper.toAnswer(keywordDto);
-        answer.setLocation(location);
-        answerRepository.save(answer);
+        Keyword keyword = keywordMapper.toKeyword(keywordDto);
+        keyword.setLocation(location);
+        answerRepository.save(keyword);
     }
 
     public void deleteKeyword(Integer answerId) {
-        Answer keyword = answerRepository.findById(answerId)
+        Keyword keyword = answerRepository.findById(answerId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("answerId", answerId));
         answerRepository.delete(keyword);
     }
