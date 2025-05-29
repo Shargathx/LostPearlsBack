@@ -85,16 +85,5 @@ public class LocationController {
         locationService.removeLocation(locationId);
     }
 
-    @Operation(summary = "Annab vastuseks suvalise MÄNGIMATA mängu")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "404", description = "Selline asukoht juba eksisteerib (errorCode 333)", content = @Content(schema = @Schema(implementation = ApiError.class))),
-            @ApiResponse(responseCode = "406", description = "Foreign key not found: '{fieldName}' with value: '{fieldValue} (errorCode 666)", content = @Content(schema = @Schema(implementation = ApiError.class)))
-    })
-    @GetMapping("/random_location")
-    public RandomLocationResponse getRandomCountyLocation(@RequestParam Integer countyId, Integer userId) {
-        return locationService.getRandomCountyLocation(countyId, userId);
-    }
-
 
 }

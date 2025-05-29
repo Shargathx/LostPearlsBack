@@ -21,9 +21,8 @@ public class GameController {
 
     @PostMapping("/game")
     @Operation(summary = "Loob asukoha p6hiselt m2ngu, mida on v6imalik hiljem valida ja alustada")
-    public Integer addGame(@RequestParam Integer userId, @RequestParam Integer locationId) {
-        Game game = gameService.addGame(userId, locationId);
-        return game.getId();
+    public void addGame(@RequestParam Integer countyId, @RequestParam Integer userId) {
+         gameService.addGame(countyId, userId);
     }
 
     @PatchMapping("/game/started")

@@ -1,7 +1,8 @@
 package ee.lostpearls.service;
 
 import ee.lostpearls.controller.game.dto.GameInfo;
-import ee.lostpearls.controller.game.dto.GameStartDto;
+import ee.lostpearls.infrastructure.exception.DataNotFoundException;
+import ee.lostpearls.infrastructure.exception.ForeignKeyNotFoundException;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
 import ee.lostpearls.persistence.game.Game;
 import ee.lostpearls.persistence.game.GameMapper;
@@ -12,16 +13,15 @@ import ee.lostpearls.persistence.locationimage.LocationImageRepository;
 import ee.lostpearls.persistence.user.User;
 import ee.lostpearls.persistence.user.UserRepository;
 import ee.lostpearls.status.GameStatus;
-import ee.lostpearls.util.InstantTime;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapping;
-import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import static ee.lostpearls.status.LocationStatus.LOCATION_ADDED;
 
 @Service
 @RequiredArgsConstructor
@@ -40,12 +40,48 @@ public class GameService {
         return gameInfo;
     }
 
-    @Transactional
-    public Game addGame(Integer userId, Integer locationId) {
-        Game game = createAndSaveGame(userId, locationId);
-        return game;
+    public void addGame(Integer countyId, Integer userId) {
+        Integer randomLocationId = findRandomLocationId(countyId, userId);
+        Location location = locationRepository.getReferenceById(randomLocationId);
+        Game game = createGame(userId, location);
+        gameRepository.save(game);
     }
 
+
+    private Integer findRandomLocationId(Integer countyId, Integer userId) {
+        List<Integer> candidateLocationIds = findCandidateLocationIds(countyId, userId);
+        if (candidateLocationIds.isEmpty()) {
+            throw new DataNotFoundException("Süsteemis ei ole hetkel saadaval enam ühtegi uut asukohta. Külasta meid hiljem uuesti", 999);
+        }
+        return findNextRandomLocationId(candidateLocationIds);
+    }
+
+    private static Integer findNextRandomLocationId(List<Integer> candidateLocationIds) {
+        Random random = new Random();
+        int randomIndex = random.nextInt(candidateLocationIds.size());
+        Integer nextRandomLocationId = candidateLocationIds.get(randomIndex);
+        return nextRandomLocationId;
+    }
+
+    private List<Integer> findCandidateLocationIds(Integer countyId, Integer userId) {
+        List<Integer> availableLocationIds = locationRepository.findLocationIdsByCountyIdAndStatusAndExcludeUserId(countyId, LOCATION_ADDED.getCode(), userId);
+        List<Integer> unavailableLocationIds = gameRepository.findLocationIdsBy(userId);
+        List<Integer> candidateLocationIds = new ArrayList<>(availableLocationIds);
+        candidateLocationIds.removeAll(unavailableLocationIds);
+        return candidateLocationIds;
+    }
+
+
+    private Game createGame(Integer userId, Location location) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ForeignKeyNotFoundException("userId", userId));
+        Game game = new Game();
+        game.setLocation(location);
+        game.setUser(user);
+        game.setStatus(GameStatus.GAME_ADDED.getCode());
+        game.setPoints(0);
+        return game;
+    }
 
     private Game getValidGameBy(Integer gameId) {
         return gameRepository.findById(gameId).orElseThrow(() -> new PrimaryKeyNotFoundException("gameId", gameId));

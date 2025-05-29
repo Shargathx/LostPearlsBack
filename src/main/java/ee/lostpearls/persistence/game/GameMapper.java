@@ -2,6 +2,7 @@ package ee.lostpearls.persistence.game;
 
 import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.controller.game.dto.GameStartDto;
+import ee.lostpearls.persistence.location.Location;
 import ee.lostpearls.status.GameStatus;
 import org.mapstruct.*;
 
