@@ -79,8 +79,18 @@ VALUES (default, 11, 4, '2015-09-12 01:01:12.000000', '2015-09-12 04:08:12.00000
 
 
 INSERT INTO pearls.hint (id, location_id, hint)
-VALUES (default, 1, 'Tekst et anda hint');
+VALUES (default, 1, 'Vaata maju');
 INSERT INTO pearls.hint (id, location_id, hint)
-VALUES (default, 2, 'Tekst et anda hint');
+VALUES (default, 1, 'Vaata aknaid');
 INSERT INTO pearls.hint (id, location_id, hint)
-VALUES (default, 3, 'Tekst et anda hint');
+VALUES (default, 1, 'Googelda totu');
+INSERT INTO pearls.hint (id, location_id, hint)
+VALUES (default, 2, 'Kuhu poole tipp j22b? Vaata sinna');
+INSERT INTO pearls.hint (id, location_id, hint)
+VALUES (default, 2, 'Mine sinna ja uuri!!');
+INSERT INTO pearls.hint (id, location_id, hint)
+VALUES (default, 3, 'Hint1');
+INSERT INTO pearls.hint (id, location_id, hint)
+VALUES (default, 4, 'Vihje 1');
+INSERT INTO pearls.hint (id, location_id, hint)
+VALUES (default, 5, 'Vihje 1');

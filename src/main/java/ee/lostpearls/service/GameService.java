@@ -73,7 +73,8 @@ public class GameService {
     public void startGame(Integer gameId) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("gameId", gameId));
-        game.setStartTime(Instant.now().plus(3, ChronoUnit.HOURS));
+        game.setStartTime(Instant.now());
+        //.plus(3, ChronoUnit.HOURS) Sellega tuli frondis timeriga error. j2tan igaks juhuks alles.
         game.setStatus(GameStatus.GAME_STARTED.getCode());
         gameRepository.save(game);
     }
