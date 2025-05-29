@@ -11,5 +11,4 @@ public class GamesInProgress {
     private Integer consumedSlots;
     private Boolean isNextSlotAvailable;
     private List<GameCardInfo> gameCards;
-
 }

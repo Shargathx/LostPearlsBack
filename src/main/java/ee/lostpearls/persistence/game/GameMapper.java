@@ -1,13 +1,16 @@
 package ee.lostpearls.persistence.game;
 
+import ee.lostpearls.controller.game.dto.GameCardInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.controller.game.dto.GameStartDto;
 import ee.lostpearls.persistence.location.Location;
 import ee.lostpearls.status.GameStatus;
 import org.mapstruct.*;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, imports = {GameStatus.class, Instant.class, ZoneId.class})
 
@@ -43,6 +46,15 @@ public interface GameMapper {
     default Long map(Instant value) {
         return value != null ? value.toEpochMilli() : null;
     }
+
+
+    @Mapping(source = "status", target = "status")
+    @Mapping(source = "location.longfield", target = "countyLng")
+    @Mapping(source = "location.latfield", target = "countyLat")
+    @Mapping(source = "location.county.name", target = "countyName")
+    @Mapping(source = "location.name", target = "locationName")
+    GameCardInfo toGameCardInfo(Game game);
+    List<GameCardInfo> toGameCardInfos(List<Game> games);
 
 
 }
