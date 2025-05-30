@@ -1,11 +1,13 @@
 package ee.lostpearls.controller.game;
 
+import ee.lostpearls.controller.game.dto.GameCardInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
-import ee.lostpearls.persistence.game.Game;
 import ee.lostpearls.service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +34,11 @@ public class GameController {
                     Teiseks kui sisestatakse 6ige vastus ja m2ng on completed.""")
     public void startGame(@RequestParam Integer gameId) {
         gameService.startGame(gameId);
+    }
+
+    @GetMapping("/games/{userId}/games-in-progress")
+    public List<GameCardInfo> getUserGamesInProgress(@PathVariable Integer userId) {
+        return gameService.getUserGamesInProgress(userId);
     }
 
 }

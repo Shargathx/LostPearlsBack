@@ -1,5 +1,7 @@
 package ee.lostpearls.service;
 
+import ee.lostpearls.controller.game.GamesInProgress;
+import ee.lostpearls.controller.game.dto.GameCardInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.infrastructure.exception.DataNotFoundException;
 import ee.lostpearls.infrastructure.exception.ForeignKeyNotFoundException;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -113,6 +116,25 @@ public class GameService {
         //.plus(3, ChronoUnit.HOURS) Sellega tuli frondis timeriga error. j2tan igaks juhuks alles.
         game.setStatus(GameStatus.GAME_STARTED.getCode());
         gameRepository.save(game);
+    }
+
+    public List<GameCardInfo> getUserGamesInProgress(Integer userId) {
+        List<String> activeStatuses = List.of(GameStatus.GAME_ADDED.getCode(), GameStatus.GAME_STARTED.getCode());
+        List<Game> userGames = gameRepository.findByUserIdAndStatusIn(userId, activeStatuses);
+
+        if (userGames.isEmpty()) {
+            throw new DataNotFoundException("List on tühi, proovi hiljem uuesti", 551);
+        }
+
+        List<GameCardInfo> gameCardInfos = gameMapper.toGameCardInfos(userGames);
+
+        GamesInProgress gamesInProgress = new GamesInProgress();
+        gamesInProgress.setTotalSlots(3);
+        gamesInProgress.setConsumedSlots(gameCardInfos.size());
+        gamesInProgress.setIsNextSlotAvailable(gameCardInfos.size() < gamesInProgress.getTotalSlots());
+        gamesInProgress.setGameCards(gameCardInfos);
+
+        return gamesInProgress.getGameCards();
     }
 
 }
