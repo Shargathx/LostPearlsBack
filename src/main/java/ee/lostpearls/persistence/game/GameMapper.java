@@ -46,11 +46,12 @@ public interface GameMapper {
     }
 
 
-    @Mapping(source = "status", target = "status")
-    @Mapping(source = "location.longfield", target = "countyLng")
-    @Mapping(source = "location.latfield", target = "countyLat")
+    @Mapping(source = "id", target = "gameId")
     @Mapping(source = "location.county.name", target = "countyName")
     @Mapping(source = "location.name", target = "locationName")
+    @Mapping(source = "location.longfield", target = "locationLng")
+    @Mapping(source = "location.latfield", target = "locationLat")
+    @Mapping(source = "status", target = "status")
     GameCardInfo toGameCardInfo(Game game);
 
     List<GameCardInfo> toGameCardInfos(List<Game> games);

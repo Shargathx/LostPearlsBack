@@ -1,8 +1,8 @@
 package ee.lostpearls.controller.game;
 
-import ee.lostpearls.controller.game.dto.GameCardInfo;
 import ee.lostpearls.controller.game.dto.GameCompletedInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
+import ee.lostpearls.controller.game.dto.GamesInProgressInfo;
 import ee.lostpearls.service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -37,9 +37,9 @@ public class GameController {
         gameService.startGame(gameId);
     }
 
-    @GetMapping("/games/{userId}/games-in-progress")
-    public List<GameCardInfo> getUserGamesInProgress(@PathVariable Integer userId) {
-        return gameService.getUserGamesInProgress(userId);
+    @GetMapping("/games-in-progress-info")
+    public GamesInProgressInfo getGamesInProgressInfo(@RequestParam Integer userId) {
+        return gameService.getGamesInProgressInfo(userId);
     }
 
     @GetMapping("/games/complete")

@@ -6,10 +6,11 @@ import java.math.BigDecimal;
 
 @Data
 public class GameCardInfo {
-    private String locationName;
+    private Integer gameId;
     private String countyName;
-    private BigDecimal countyLat;
-    private BigDecimal countyLng;
+    private String locationName;
+    private BigDecimal locationLat;
+    private BigDecimal locationLng;
     private String status;
 
 }
