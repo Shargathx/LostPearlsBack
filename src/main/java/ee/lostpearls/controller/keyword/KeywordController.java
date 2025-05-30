@@ -34,4 +34,11 @@ public class KeywordController {
     public void deleteKeyword(Integer answerId) {
         keywordService.deleteKeyword(answerId);
     }
+
+    @GetMapping("/keyword")
+    @Operation(summary = "tagastab keywordi et nt kontrollida millist keywordi kustutad")
+    public KeywordInfo getKeyword (Integer keywordId){
+        KeywordInfo keyword = keywordService.getKeyword(keywordId);
+        return keyword;
+    }
 }
