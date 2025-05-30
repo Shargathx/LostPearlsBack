@@ -44,6 +44,15 @@ public class KeywordService {
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("answerId", answerId));
         answerRepository.delete(keyword);
     }
+
+    public KeywordInfo getKeyword(Integer keywordId){
+        Keyword keyword = answerRepository.findById(keywordId)
+                .orElseThrow(() -> new PrimaryKeyNotFoundException("answerId", keywordId));
+        KeywordInfo keywordInfo = keywordMapper.toKeywordInfo(keyword);
+        return keywordInfo;
+
+    }
+
 }
 
 
