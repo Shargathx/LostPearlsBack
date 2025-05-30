@@ -1,6 +1,5 @@
-package ee.lostpearls.controller.game;
+package ee.lostpearls.controller.game.dto;
 
-import ee.lostpearls.controller.game.dto.GameCardInfo;
 import lombok.Data;
 
 import java.util.List;

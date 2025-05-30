@@ -1,6 +1,7 @@
 package ee.lostpearls.controller.game;
 
 import ee.lostpearls.controller.game.dto.GameCardInfo;
+import ee.lostpearls.controller.game.dto.GameCompletedInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,6 +40,12 @@ public class GameController {
     @GetMapping("/games/{userId}/games-in-progress")
     public List<GameCardInfo> getUserGamesInProgress(@PathVariable Integer userId) {
         return gameService.getUserGamesInProgress(userId);
+    }
+
+    @GetMapping("/games/complete")
+    @Operation(summary = "Tagastab listi m2ngitud m2ngudest userId p6hjal")
+    public List<GameCompletedInfo> getUserCompletedGames(Integer userId) {
+        return gameService.getUserCompletedGames(userId);
     }
 
 }
