@@ -16,4 +16,8 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
     List<Integer> findLocationIdsBy(Integer userId);
 
     List<Game> findByUserIdAndStatusIn(Integer userId, List<String> statuses);
+
+    @Query("select g from Game g where g.user.id = :userId and g.status = :status order by g.id")
+    List<Game> findGamesBy(Integer userId, String status);
+
 }

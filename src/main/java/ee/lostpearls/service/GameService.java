@@ -1,6 +1,7 @@
 package ee.lostpearls.service;
 
-import ee.lostpearls.controller.game.GamesInProgress;
+import ee.lostpearls.controller.game.dto.GameCompletedInfo;
+import ee.lostpearls.controller.game.dto.GamesInProgress;
 import ee.lostpearls.controller.game.dto.GameCardInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.infrastructure.exception.DataNotFoundException;
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -137,4 +137,9 @@ public class GameService {
         return gamesInProgress.getGameCards();
     }
 
+    public List<GameCompletedInfo> getUserCompletedGames(Integer userId) {
+        List<Game> gamesCompleted = gameRepository.findGamesBy(userId, GameStatus.GAME_COMPLETED.getCode());
+        List<GameCompletedInfo> gameCompletedInfos = gameMapper.toGameCompletedInfos(gamesCompleted);
+        return gameCompletedInfos ;
+    }
 }

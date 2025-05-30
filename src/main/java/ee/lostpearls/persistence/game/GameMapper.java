@@ -1,12 +1,10 @@
 package ee.lostpearls.persistence.game;
 
 import ee.lostpearls.controller.game.dto.GameCardInfo;
+import ee.lostpearls.controller.game.dto.GameCompletedInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
-import ee.lostpearls.controller.game.dto.GameStartDto;
-import ee.lostpearls.persistence.location.Location;
 import ee.lostpearls.status.GameStatus;
 import org.mapstruct.*;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -54,7 +52,15 @@ public interface GameMapper {
     @Mapping(source = "location.county.name", target = "countyName")
     @Mapping(source = "location.name", target = "locationName")
     GameCardInfo toGameCardInfo(Game game);
+
     List<GameCardInfo> toGameCardInfos(List<Game> games);
 
 
+    @Mapping(source = "location.name", target = "locationName")
+    @Mapping(source = "status", target = "status")
+    @Mapping(source = "completeDate", target = "completeDate")
+    @Mapping(source = "points", target = "points")
+    GameCompletedInfo toGameCompletedInfo(Game game);
+
+    List<GameCompletedInfo> toGameCompletedInfos(List<Game> gamesCompleted);
 }
