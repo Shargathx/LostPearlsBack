@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static ee.lostpearls.status.LocationStatus.LOCATION_ADDED;
 
@@ -126,7 +127,8 @@ public class GameService {
             throw new DataNotFoundException("List on tühi, proovi hiljem uuesti", 551);
         }
 
-        List<GameCardInfo> gameCardInfos = gameMapper.toGameCardInfos(userGames);
+        List<Game> limitedGames = userGames.stream().limit(3).collect(Collectors.toList());
+        List<GameCardInfo> gameCardInfos = gameMapper.toGameCardInfos(limitedGames);
 
         GamesInProgress gamesInProgress = new GamesInProgress();
         gamesInProgress.setTotalSlots(3);
