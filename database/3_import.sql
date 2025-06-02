@@ -86,7 +86,7 @@ INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 1, 'the name is
 INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 1, '..who had mustache');
 INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 1, '..and ruled USSR during WW2');
 INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 2, 'It serves as a beacon ');
-INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 2, '..not becon');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 2, '..not bacon');
 INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 3, 'when I hear the name I think of vodka');
 INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 4, 'not so nice colour');
 INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 4, 'not blue');
