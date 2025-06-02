@@ -4,7 +4,6 @@ INSERT INTO pearls.role (id, name)
 VALUES (default, 'customer');
 
 
-
 INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUES (default, 1, 'admin', '123', 'admin@admin.com', 'A');
 INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUES (default, 1, 'mikk', '123', 'mikk@mikk.com', 'A');
 INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUES (default, 1, 'kaspar', '123', 'kaspar@kaspar.com', 'A');
@@ -50,6 +49,37 @@ INSERT INTO pearls.location (id, user_id, county_id, name, longfield, latfield, 
 INSERT INTO pearls.location (id, user_id, county_id, name, longfield, latfield, zoomlevel, status, teaser, extended_info, question, answer, date_added) VALUES (default, 4, 3, 'Rõngu Vassal Stronghold Ruins', 26.266000000000000, 58.143000000000000, 10, 'A', 'Amidst tranquil parklands lie the silent stones of a once-mighty bastion, echoing tales of medieval valor and Jesuit intrigue.', 'Nestled in the heart of Tartu County, the Rõngu Vassal Stronghold dates back to the 14th century. Initially constructed by the Tödwen family, this fortress later became a significant Jesuit center in South Estonia. Despite its destruction in 1558 during the Livonian War, remnants of its walls and main entrance still stand, offering visitors a tangible connection to Estonia''s layered past. The surrounding park provides a serene backdrop, inviting contemplation of the stronghold''s storied history.', 'What religious order transformed the Rõngu Stronghold into their South-Estonian center in the 16th century?', 'The Jesuits', '2025-05-14');
 
 
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'stalinistic');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'stalinist');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'stalinistlik');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'lighthouse');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'tuletorn');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'livonian');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'liivi');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'turquoise');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'blue');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'sinine');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'türkiis');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'demagnetize');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'demagnetizing');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'demagnetiseerimine');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'limestone cliffs');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'cliffs');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'Magnus');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'Holstein');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'merekindlus');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'fortress');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'sea mark');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'mahtra');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'tilt');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'kaldusolek');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'kaldu');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'ungern-sternberg');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'otto');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'reinhold');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'ludwig');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'jesuiidid');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'jesuits');
 
 
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)

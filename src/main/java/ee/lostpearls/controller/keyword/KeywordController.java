@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-
 public class KeywordController {
 
     private final KeywordService keywordService;
@@ -31,13 +30,13 @@ public class KeywordController {
 
     @DeleteMapping("/keyword")
     @Operation(summary = "vastuse variandi kustutamine")
-    public void deleteKeyword(Integer answerId) {
-        keywordService.deleteKeyword(answerId);
+    public void deleteKeyword(@RequestParam Integer keywordId) {
+        keywordService.deleteKeyword(keywordId);
     }
 
     @GetMapping("/keyword")
     @Operation(summary = "tagastab keywordi et nt kontrollida millist keywordi kustutad")
-    public KeywordInfo getKeyword (Integer keywordId){
+    public KeywordInfo getKeyword (@RequestParam Integer keywordId){
         KeywordInfo keyword = keywordService.getKeyword(keywordId);
         return keyword;
     }
