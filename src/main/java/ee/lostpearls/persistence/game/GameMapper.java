@@ -30,6 +30,7 @@ public interface GameMapper {
     @Mapping(source = "location.latfield", target = "lat")
     @Mapping(source = "location.longfield", target = "lng")
     @Mapping(constant = "", target = "imageData")
+    @Mapping(source = "hintsUsed", target = "hintsUsed")
     @Mapping(constant = "14", target = "zoomLevel")
         // @Mapping( hint tuleb eraldi teenusega hing v game_hint tabelist, target = "hint")
     GameInfo toGameInfo(Game game);

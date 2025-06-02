@@ -5,6 +5,7 @@ import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.controller.game.dto.GamesInProgressInfo;
 import ee.lostpearls.service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,8 +52,8 @@ public class GameController {
     @PatchMapping("/game/completed")
     @Operation(summary = "Uuendab m2ngu vastavalt kui m2ng on l6petatud",
             description = "Lisab tabelisse m2ngu l6petamise aja, muudab staatuse ja arvutab punktid")
-    public void completeGame (@RequestParam Integer gameId) {
-        gameService.completeGame(gameId);
+    public void completeGame (@RequestParam Integer gameId, Integer hintsUsed) {
+        gameService.completeGame(gameId, hintsUsed);
     }
 
 }

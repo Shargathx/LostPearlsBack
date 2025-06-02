@@ -23,6 +23,8 @@ public class GameInfo {
     private BigDecimal lat;
     private BigDecimal lng;
     private Integer zoomLevel;
+    private Integer hintsUsed;
+
 
     //private List<HintInfo> hints; // comment this in later
 }

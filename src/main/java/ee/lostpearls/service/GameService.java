@@ -82,14 +82,14 @@ public class GameService {
         gameRepository.save(game);
     }
 
-    public void completeGame(Integer gameId) {
+    public void completeGame(Integer gameId, Integer hintsUsed) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new PrimaryKeyNotFoundException("gameId", gameId));
         game.setEndTime(Instant.now());
         game.setStatus(GameStatus.GAME_COMPLETED.getCode());
         Instant startTime = game.getStartTime();
         Instant endTime = game.getEndTime();
-        Integer hintsUsed = game.getHintsUsed();
+        game.setHintsUsed(hintsUsed);
         int finalPoints = calculatePoints(startTime, endTime, hintsUsed);
         game.setPoints(finalPoints);
         gameRepository.save(game);
@@ -206,8 +206,8 @@ public class GameService {
 
     private static int calculatePoints(Instant startTime, Instant endTime, Integer hintsUsed) {
         long elapsedMilliseconds = endTime.toEpochMilli() - startTime.toEpochMilli();
-        long elapsedSeconds = elapsedMilliseconds * 1000;
-        long elapsedMinutes = elapsedSeconds * 60;
+        long elapsedSeconds = elapsedMilliseconds / 1000;
+        long elapsedMinutes = elapsedSeconds / 60;
         // If the answer is submitted after 60 minutes, no points are awarded
         if (elapsedMinutes >= MAX_TIME_MINUTES) {
             return 0;
@@ -220,7 +220,7 @@ public class GameService {
         points = Math.max(points, MIN_POINTS);
 
         // Deduct points for hints used
-        points -= hintsUsed * HINT_PENALTY;
+        points -= (hintsUsed != null ? hintsUsed : 0) * HINT_PENALTY;
 
         // Ensure points don't go negative
         return Math.max(points, 0);
