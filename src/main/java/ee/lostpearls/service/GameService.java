@@ -36,6 +36,13 @@ public class GameService {
     private final UserRepository userRepository;
     private final LocationImageRepository locationImageRepository;
 
+    private static final int MAX_POINTS = 100;
+    private static final int MIN_POINTS = 1;
+    private static final int MAX_TIME_MINUTES = 60;
+    private static final int POINT_DEDUCTION_INTERVAL_SECONDS = 36;
+    private static final int HINT_PENALTY = 10;
+
+
 
     public GameInfo findGame(Integer gameId) {
         Game game = getValidGameBy(gameId);
@@ -118,6 +125,43 @@ public class GameService {
         gameRepository.save(game);
     }
 
+    public void completeGame(Integer gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new PrimaryKeyNotFoundException("gameId", gameId));
+        game.setEndTime(Instant.now());
+        game.setStatus(GameStatus.GAME_COMPLETED.getCode());
+        Instant startTime = game.getStartTime();
+        Instant endTime = game.getEndTime();
+        Integer hintsUsed = game.getHintsUsed();
+        int finalPoints = calculatePoints(startTime, endTime, hintsUsed);
+        game.setPoints(finalPoints);
+        gameRepository.save(game);
+
+    }
+
+    private static int calculatePoints(Instant startTime, Instant endTime, Integer hintsUsed) {
+        long elapsedMilliseconds = endTime.toEpochMilli() - startTime.toEpochMilli();
+        long elapsedSeconds = elapsedMilliseconds * 1000;
+        long elapsedMinutes = elapsedSeconds * 60;
+        // If the answer is submitted after 60 minutes, no points are awarded
+        if (elapsedMinutes >= MAX_TIME_MINUTES) {
+            return 0;
+        }
+
+        // Calculate points based on elapsed time
+        int points = MAX_POINTS - (int) (elapsedSeconds / POINT_DEDUCTION_INTERVAL_SECONDS);
+
+        // Ensure points don't go below the minimum threshold
+        points = Math.max(points, MIN_POINTS);
+
+        // Deduct points for hints used
+        points -= hintsUsed * HINT_PENALTY;
+
+        // Ensure points don't go negative
+        return Math.max(points, 0);
+    }
+
+
     public List<GameCardInfo> getUserGamesInProgress(Integer userId) {
         List<String> activeStatuses = List.of(GameStatus.GAME_ADDED.getCode(), GameStatus.GAME_STARTED.getCode());
         List<Game> userGames = gameRepository.findByUserIdAndStatusIn(userId, activeStatuses);
@@ -142,4 +186,5 @@ public class GameService {
         List<GameCompletedInfo> gameCompletedInfos = gameMapper.toGameCompletedInfos(gamesCompleted);
         return gameCompletedInfos ;
     }
+
 }

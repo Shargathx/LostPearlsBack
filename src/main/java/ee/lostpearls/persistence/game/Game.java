@@ -47,7 +47,13 @@ public class Game {
     private LocalDateTime completeDate;
 
     @NotNull
+    @Column(name = "hints_used", nullable = false)
+    private Integer hintsUsed;
+
+    @NotNull
     @Column(name = "points", nullable = false)
     private Integer points;
+
+
 
 }

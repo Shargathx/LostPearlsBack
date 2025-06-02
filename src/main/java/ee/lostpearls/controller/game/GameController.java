@@ -37,6 +37,13 @@ public class GameController {
         gameService.startGame(gameId);
     }
 
+    @PatchMapping("/game/completed")
+    @Operation(summary = "Uuendab m2ngu vastavalt kui m2ng on l6petatud",
+            description = "Lisab tabelisse m2ngu l6petamise aja, muudab staatuse ja arvutab punktid")
+    public void completeGame (@RequestParam Integer gameId) {
+        gameService.completeGame(gameId);
+    }
+
     @GetMapping("/games/{userId}/games-in-progress")
     public List<GameCardInfo> getUserGamesInProgress(@PathVariable Integer userId) {
         return gameService.getUserGamesInProgress(userId);
