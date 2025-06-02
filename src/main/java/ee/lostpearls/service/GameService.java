@@ -19,7 +19,6 @@ import ee.lostpearls.persistence.user.User;
 import ee.lostpearls.persistence.user.UserRepository;
 import ee.lostpearls.status.GameStatus;
 import ee.lostpearls.util.ImageConverter;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -135,15 +134,7 @@ public class GameService {
 
         List<GameCardInfo> gameCardInfos = gameMapper.toGameCardInfos(userGames);
 
-        for (GameCardInfo gameCardInfo : gameCardInfos) {
-            Integer locationId = gameCardInfo.getLocationId();
-            LocationImage locationImageBy = locationImageRepository.findLocationImageBy(locationId);
-            if (locationImageBy != null) {
-                byte[] imageData = locationImageBy.getImageData();
-                String locationImageData = ImageConverter.bytesToString(imageData);
-                gameCardInfo.setLocationImageData(locationImageData);
-            }
-        }
+        addImages(gameCardInfos);
 
         int numberOfConsumedSlots = gameCardInfos.size();
 
@@ -155,6 +146,18 @@ public class GameService {
         gamesInProgressInfo.setGameCards(gameCardInfos);
 
         return gamesInProgressInfo;
+    }
+
+    private void addImages(List<GameCardInfo> gameCardInfos) {
+        for (GameCardInfo gameCardInfo : gameCardInfos) {
+            Integer locationId = gameCardInfo.getLocationId();
+            LocationImage findLocationImageBy = locationImageRepository.findLocationImageBy(locationId);
+            if (findLocationImageBy != null) {
+                byte[] imageData = findLocationImageBy.getImageData();
+                String locationImageData = ImageConverter.bytesToString(imageData);
+                gameCardInfo.setLocationImageData(locationImageData);
+            }
+        }
     }
 
     private static boolean isIsNextSlotAvailable(int numberOfConsumedSlots) {
