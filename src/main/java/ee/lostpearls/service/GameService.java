@@ -4,6 +4,7 @@ import ee.lostpearls.controller.game.dto.GameCardInfo;
 import ee.lostpearls.controller.game.dto.GameCompletedInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.controller.game.dto.GamesInProgressInfo;
+import ee.lostpearls.controller.location.dto.LocationInfo;
 import ee.lostpearls.infrastructure.exception.DataNotFoundException;
 import ee.lostpearls.infrastructure.exception.ForbiddenException;
 import ee.lostpearls.infrastructure.exception.ForeignKeyNotFoundException;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import static ee.lostpearls.conf.SystemSettings.SYSTEM_ALLOWED_TOTAL_SLOTS;
@@ -51,8 +53,18 @@ public class GameService {
     public GameInfo findGame(Integer gameId) {
         Game game = getValidGameBy(gameId);
         GameInfo gameInfo = gameMapper.toGameInfo(game);
+
+        Optional<LocationImage> optionalLocationImage = locationImageRepository.findLocationImageBy(gameInfo.getLocationId());
+        if (optionalLocationImage.isPresent()) {
+            LocationImage locationImage = optionalLocationImage.get();
+            gameInfo.setImageData(ImageConverter.bytesToString(locationImage.getImageData()));
+        }
+
+
         return gameInfo;
     }
+
+
 
     public void addGame(Integer countyId, Integer userId) {
         Integer randomLocationId = findRandomLocationId(countyId, userId);
@@ -147,6 +159,7 @@ public class GameService {
         game.setUser(user);
         game.setStatus(GameStatus.GAME_ADDED.getCode());
         game.setPoints(0);
+        game.setHintsUsed(0);
         return game;
     }
 
@@ -177,9 +190,9 @@ public class GameService {
     private void addImages(List<GameCardInfo> gameCardInfos) {
         for (GameCardInfo gameCardInfo : gameCardInfos) {
             Integer locationId = gameCardInfo.getLocationId();
-            LocationImage findLocationImageBy = locationImageRepository.findLocationImageBy(locationId);
-            if (findLocationImageBy != null) {
-                byte[] imageData = findLocationImageBy.getImageData();
+            Optional<LocationImage> optionalLocationImage = locationImageRepository.findLocationImageBy(locationId);
+            if (optionalLocationImage.isPresent()) {
+                byte[] imageData = optionalLocationImage.get().getImageData();
                 String locationImageData = ImageConverter.bytesToString(imageData);
                 gameCardInfo.setLocationImageData(locationImageData);
             }

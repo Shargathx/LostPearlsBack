@@ -41,6 +41,7 @@ public interface LocationMapper {
     @Mapping(source = "extendedInfo", target = "extendedInfo")
     @Mapping(source = "question", target = "question")
     @Mapping(source = "answer", target = "answer")
+    @Mapping(constant = "", target = "imageData")
     LocationInfo toLocationInfo(Location location);
 
     List<LocationInfo> toLocationInfos(List<Location> locations);

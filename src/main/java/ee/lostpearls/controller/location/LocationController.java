@@ -1,6 +1,8 @@
 package ee.lostpearls.controller.location;
 
-import ee.lostpearls.controller.location.dto.*;
+import ee.lostpearls.controller.location.dto.LocationDto;
+import ee.lostpearls.controller.location.dto.LocationInfo;
+import ee.lostpearls.controller.location.dto.LocationResponse;
 import ee.lostpearls.infrastructure.error.ApiError;
 import ee.lostpearls.service.LocationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -69,8 +71,8 @@ public class LocationController {
             @ApiResponse(responseCode = "404", description = "Selline asukoht juba eksisteerib (errorCode 333)", content = @Content(schema = @Schema(implementation = ApiError.class))),
             @ApiResponse(responseCode = "406", description = "Foreign key not found: '{fieldName}' with value: '{fieldValue} (errorCode 666)", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
-    public void updateLocation(@PathVariable Integer locationId, @RequestBody LocationDto locationDto) {
-        locationService.updateLocation(locationId, locationDto);
+    public void updateLocation(@PathVariable Integer locationId, @RequestBody LocationInfo locationInfo) {
+        locationService.updateLocation(locationId, locationInfo);
 
     }
 

@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LocationInfo extends LocationDto {
     private String countyName;
+    private String imageData;
 }

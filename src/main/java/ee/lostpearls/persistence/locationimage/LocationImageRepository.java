@@ -9,6 +9,6 @@ public interface LocationImageRepository extends JpaRepository<LocationImage, In
 
 
     @Query("select l from LocationImage l where l.location.id = :locationId")
-    LocationImage findLocationImageBy(Integer locationId);
+    Optional<LocationImage> findLocationImageBy(Integer locationId);
 
 }
