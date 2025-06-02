@@ -48,6 +48,7 @@ public interface GameMapper {
 
     @Mapping(source = "id", target = "gameId")
     @Mapping(source = "location.county.name", target = "countyName")
+    @Mapping(source = "location.id", target = "locationId")
     @Mapping(source = "location.name", target = "locationName")
     @Mapping(source = "location.longfield", target = "locationLng")
     @Mapping(source = "location.latfield", target = "locationLat")

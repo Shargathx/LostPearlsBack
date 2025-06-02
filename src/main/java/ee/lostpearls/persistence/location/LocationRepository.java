@@ -21,7 +21,7 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
     @Query("select l from Location l where l.user.id = :userId and l.status = :status")
     List<Location> findLocationsByUserIdAndStatus(Integer userId, String status);
 
-    @Query("select (count(l) > 0) from Location l where l.name = :locationName and l.county = :countyId")
+    @Query("select (count(l) > 0) from Location l where l.name = :locationName and l.county.id = :countyId")
     boolean locationExistsByLocationNameAndCountyId(String locationName, Integer countyId);
 
     @Query("select l from Location l where l.county.id = :countyId and l.status = :status")

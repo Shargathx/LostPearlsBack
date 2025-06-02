@@ -13,6 +13,7 @@ import ee.lostpearls.persistence.game.GameMapper;
 import ee.lostpearls.persistence.game.GameRepository;
 import ee.lostpearls.persistence.location.Location;
 import ee.lostpearls.persistence.location.LocationRepository;
+import ee.lostpearls.persistence.locationimage.LocationImage;
 import ee.lostpearls.persistence.locationimage.LocationImageRepository;
 import ee.lostpearls.persistence.user.User;
 import ee.lostpearls.persistence.user.UserRepository;
@@ -123,7 +124,7 @@ public class GameService {
 
     public GamesInProgressInfo getGamesInProgressInfo(Integer userId) {
         List<String> activeStatuses = List.of(GameStatus.GAME_ADDED.getCode(), GameStatus.GAME_STARTED.getCode());
-        List<Game> userGames = gameRepository.findByUserIdAndStatusIn(userId, activeStatuses);
+        List<Game> userGames = gameRepository.findGamesByUserIdAndStatusIn(userId, activeStatuses);
 
 
         if (userGames.size() >= 4) {
@@ -131,6 +132,15 @@ public class GameService {
         }
 
         List<GameCardInfo> gameCardInfos = gameMapper.toGameCardInfos(userGames);
+
+        for (GameCardInfo gameCardInfo : gameCardInfos) {
+            Integer locationId = gameCardInfo.getLocationId();
+            LocationImage locationImageBy = locationImageRepository.findLocationImageBy(locationId);
+
+
+
+            gameCardInfo.setLocationImageData();
+        }
 
         int numberOfConsumedSlots = gameCardInfos.size();
 

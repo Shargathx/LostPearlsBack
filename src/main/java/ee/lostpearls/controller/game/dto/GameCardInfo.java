@@ -8,7 +8,9 @@ import java.math.BigDecimal;
 public class GameCardInfo {
     private Integer gameId;
     private String countyName;
+    private Integer locationId;
     private String locationName;
+    private String locationImageData;
     private BigDecimal locationLat;
     private BigDecimal locationLng;
     private String status;
