@@ -18,6 +18,8 @@ import ee.lostpearls.persistence.locationimage.LocationImageRepository;
 import ee.lostpearls.persistence.user.User;
 import ee.lostpearls.persistence.user.UserRepository;
 import ee.lostpearls.status.GameStatus;
+import ee.lostpearls.util.ImageConverter;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -136,10 +138,11 @@ public class GameService {
         for (GameCardInfo gameCardInfo : gameCardInfos) {
             Integer locationId = gameCardInfo.getLocationId();
             LocationImage locationImageBy = locationImageRepository.findLocationImageBy(locationId);
-
-
-
-            gameCardInfo.setLocationImageData();
+            if (locationImageBy != null) {
+                byte[] imageData = locationImageBy.getImageData();
+                String locationImageData = ImageConverter.bytesToString(imageData);
+                gameCardInfo.setLocationImageData(locationImageData);
+            }
         }
 
         int numberOfConsumedSlots = gameCardInfos.size();
