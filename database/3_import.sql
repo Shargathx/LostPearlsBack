@@ -4,7 +4,6 @@ INSERT INTO pearls.role (id, name)
 VALUES (default, 'customer');
 
 
-
 INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUES (default, 1, 'admin', '123', 'admin@admin.com', 'A');
 INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUES (default, 1, 'mikk', '123', 'mikk@mikk.com', 'A');
 INSERT INTO pearls."user" (id, role_id, username, password, email, status) VALUES (default, 1, 'kaspar', '123', 'kaspar@kaspar.com', 'A');
@@ -50,6 +49,59 @@ INSERT INTO pearls.location (id, user_id, county_id, name, longfield, latfield, 
 INSERT INTO pearls.location (id, user_id, county_id, name, longfield, latfield, zoomlevel, status, teaser, extended_info, question, answer, date_added) VALUES (default, 4, 3, 'Rõngu Vassal Stronghold Ruins', 26.266000000000000, 58.143000000000000, 10, 'A', 'Amidst tranquil parklands lie the silent stones of a once-mighty bastion, echoing tales of medieval valor and Jesuit intrigue.', 'Nestled in the heart of Tartu County, the Rõngu Vassal Stronghold dates back to the 14th century. Initially constructed by the Tödwen family, this fortress later became a significant Jesuit center in South Estonia. Despite its destruction in 1558 during the Livonian War, remnants of its walls and main entrance still stand, offering visitors a tangible connection to Estonia''s layered past. The surrounding park provides a serene backdrop, inviting contemplation of the stronghold''s storied history.', 'What religious order transformed the Rõngu Stronghold into their South-Estonian center in the 16th century?', 'The Jesuits', '2025-05-14');
 
 
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'stalinistic');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'stalinist');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 1, 'stalinistlik');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 2, 'lighthouse');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 2, 'tuletorn');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 3, 'livonian');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 3, 'liivi');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 4, 'turquoise');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 4, 'blue');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 4, 'sinine');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 4, 'türkiis');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 5, 'demagnetize');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 5, 'demagnetizing');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 5, 'demagnetiseerimine');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 6, 'limestone cliffs');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 6, 'cliffs');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 7, 'Magnus');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 7, 'Holstein');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 8, 'merekindlus');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 8, 'fortress');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 9, 'sea mark');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 10, 'mahtra');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 11, 'tilt');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 11, 'kaldusolek');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 11, 'kaldu');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 12, 'ungern-sternberg');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 12, 'otto');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 12, 'reinhold');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 12, 'ludwig');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 13, 'jesuiidid');
+INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 13, 'jesuits');
+
+
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 1, 'the name is derived from a not so nice guy');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 1, '..who had mustache');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 1, '..and ruled USSR during WW2');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 2, 'It serves as a beacon ');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 2, '..not bacon');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 3, 'when I hear the name I think of vodka');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 4, 'not so nice colour');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 4, 'not blue');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 4, 'not grey');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 5, 'the name consists of two parts. Second part is similar to a character from Xmen. ');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 6, 'there is a guy who sings about a devil woman with the 1st name we are looking for.');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 7, 'there is a chess player with similar first name');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 8, '4th studio album of Alter Bridge');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 8, 'Boeing B17 was called with the same name:  flying….');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 9, 'two word: first is a great body of salt water, second is …Zuckeberg');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 10, 'In this war the harshest punishments were given to Ado Andrei from Mahtra Manor and Peeter Olander from Kaiu Manor, each receiving 1,000 blows through the gauntlet, along with the loss of all class privileges, 20 years of hard labor, and subsequent exile to Siberia.');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 11, 'Pisa has similar issues');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 12, 'there is a guy who makes vacuum tube amplifiers with the same first name');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 13, 'the secret order that rules the world');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 13, 'there is a 1986 movie of same religious order called “the Mission” ');
 
 
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, hints_used, points)

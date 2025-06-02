@@ -1,8 +1,8 @@
 package ee.lostpearls.controller.game;
 
-import ee.lostpearls.controller.game.dto.GameCardInfo;
 import ee.lostpearls.controller.game.dto.GameCompletedInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
+import ee.lostpearls.controller.game.dto.GamesInProgressInfo;
 import ee.lostpearls.service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class GameController {
     @PostMapping("/game")
     @Operation(summary = "Loob asukoha p6hiselt m2ngu, mida on v6imalik hiljem valida ja alustada")
     public void addGame(@RequestParam Integer countyId, @RequestParam Integer userId) {
-         gameService.addGame(countyId, userId);
+        gameService.addGame(countyId, userId);
     }
 
     @PatchMapping("/game/started")
@@ -37,22 +37,22 @@ public class GameController {
         gameService.startGame(gameId);
     }
 
-    @PatchMapping("/game/completed")
-    @Operation(summary = "Uuendab m2ngu vastavalt kui m2ng on l6petatud",
-            description = "Lisab tabelisse m2ngu l6petamise aja, muudab staatuse ja arvutab punktid")
-    public void completeGame (@RequestParam Integer gameId) {
-        gameService.completeGame(gameId);
-    }
-
-    @GetMapping("/games/{userId}/games-in-progress")
-    public List<GameCardInfo> getUserGamesInProgress(@PathVariable Integer userId) {
-        return gameService.getUserGamesInProgress(userId);
+    @GetMapping("/games-in-progress-info")
+    public GamesInProgressInfo getGamesInProgressInfo(@RequestParam Integer userId) {
+        return gameService.getGamesInProgressInfo(userId);
     }
 
     @GetMapping("/games/complete")
     @Operation(summary = "Tagastab listi m2ngitud m2ngudest userId p6hjal")
     public List<GameCompletedInfo> getUserCompletedGames(Integer userId) {
         return gameService.getUserCompletedGames(userId);
+    }
+
+    @PatchMapping("/game/completed")
+    @Operation(summary = "Uuendab m2ngu vastavalt kui m2ng on l6petatud",
+            description = "Lisab tabelisse m2ngu l6petamise aja, muudab staatuse ja arvutab punktid")
+    public void completeGame (@RequestParam Integer gameId) {
+        gameService.completeGame(gameId);
     }
 
 }

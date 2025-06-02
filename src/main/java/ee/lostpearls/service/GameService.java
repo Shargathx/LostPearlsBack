@@ -1,10 +1,11 @@
 package ee.lostpearls.service;
 
 import ee.lostpearls.controller.game.dto.GameCompletedInfo;
-import ee.lostpearls.controller.game.dto.GamesInProgress;
+import ee.lostpearls.controller.game.dto.GamesInProgressInfo;
 import ee.lostpearls.controller.game.dto.GameCardInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
 import ee.lostpearls.infrastructure.exception.DataNotFoundException;
+import ee.lostpearls.infrastructure.exception.ForbiddenException;
 import ee.lostpearls.infrastructure.exception.ForeignKeyNotFoundException;
 import ee.lostpearls.infrastructure.exception.PrimaryKeyNotFoundException;
 import ee.lostpearls.persistence.game.Game;
@@ -12,10 +13,12 @@ import ee.lostpearls.persistence.game.GameMapper;
 import ee.lostpearls.persistence.game.GameRepository;
 import ee.lostpearls.persistence.location.Location;
 import ee.lostpearls.persistence.location.LocationRepository;
+import ee.lostpearls.persistence.locationimage.LocationImage;
 import ee.lostpearls.persistence.locationimage.LocationImageRepository;
 import ee.lostpearls.persistence.user.User;
 import ee.lostpearls.persistence.user.UserRepository;
 import ee.lostpearls.status.GameStatus;
+import ee.lostpearls.util.ImageConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +27,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static ee.lostpearls.conf.SystemSettings.SYSTEM_ALLOWED_TOTAL_SLOTS;
 import static ee.lostpearls.status.LocationStatus.LOCATION_ADDED;
 
 @Service
 @RequiredArgsConstructor
 public class GameService {
+
 
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
@@ -162,23 +167,45 @@ public class GameService {
     }
 
 
-    public List<GameCardInfo> getUserGamesInProgress(Integer userId) {
+    public GamesInProgressInfo getGamesInProgressInfo(Integer userId) {
         List<String> activeStatuses = List.of(GameStatus.GAME_ADDED.getCode(), GameStatus.GAME_STARTED.getCode());
-        List<Game> userGames = gameRepository.findByUserIdAndStatusIn(userId, activeStatuses);
+        List<Game> userGames = gameRepository.findGamesByUserIdAndStatusIn(userId, activeStatuses);
 
-        if (userGames.isEmpty()) {
-            throw new DataNotFoundException("List on tühi, proovi hiljem uuesti", 551);
+
+        if (userGames.size() >= 4) {
+            throw new ForbiddenException("Süsteemi viga (552)', palun võta ühendust meie teenindusega", 552);
         }
 
         List<GameCardInfo> gameCardInfos = gameMapper.toGameCardInfos(userGames);
 
-        GamesInProgress gamesInProgress = new GamesInProgress();
-        gamesInProgress.setTotalSlots(3);
-        gamesInProgress.setConsumedSlots(gameCardInfos.size());
-        gamesInProgress.setIsNextSlotAvailable(gameCardInfos.size() < gamesInProgress.getTotalSlots());
-        gamesInProgress.setGameCards(gameCardInfos);
+        addImages(gameCardInfos);
 
-        return gamesInProgress.getGameCards();
+        int numberOfConsumedSlots = gameCardInfos.size();
+
+        GamesInProgressInfo gamesInProgressInfo = new GamesInProgressInfo();
+        gamesInProgressInfo.setTotalSlots(SYSTEM_ALLOWED_TOTAL_SLOTS);
+        gamesInProgressInfo.setConsumedSlots(numberOfConsumedSlots);
+        gamesInProgressInfo.setAvailableSlots(SYSTEM_ALLOWED_TOTAL_SLOTS - numberOfConsumedSlots);
+        gamesInProgressInfo.setIsNextSlotAvailable(isIsNextSlotAvailable(numberOfConsumedSlots));
+        gamesInProgressInfo.setGameCards(gameCardInfos);
+
+        return gamesInProgressInfo;
+    }
+
+    private void addImages(List<GameCardInfo> gameCardInfos) {
+        for (GameCardInfo gameCardInfo : gameCardInfos) {
+            Integer locationId = gameCardInfo.getLocationId();
+            LocationImage findLocationImageBy = locationImageRepository.findLocationImageBy(locationId);
+            if (findLocationImageBy != null) {
+                byte[] imageData = findLocationImageBy.getImageData();
+                String locationImageData = ImageConverter.bytesToString(imageData);
+                gameCardInfo.setLocationImageData(locationImageData);
+            }
+        }
+    }
+
+    private static boolean isIsNextSlotAvailable(int numberOfConsumedSlots) {
+        return numberOfConsumedSlots< SYSTEM_ALLOWED_TOTAL_SLOTS;
     }
 
     public List<GameCompletedInfo> getUserCompletedGames(Integer userId) {
@@ -186,5 +213,4 @@ public class GameService {
         List<GameCompletedInfo> gameCompletedInfos = gameMapper.toGameCompletedInfos(gamesCompleted);
         return gameCompletedInfos ;
     }
-
 }
