@@ -82,6 +82,28 @@ INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 13, 'jesu
 INSERT INTO pearls.keyword (id, location_id, keyword) VALUES (default, 13, 'jesuits');
 
 
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 1, 'the name is derived from a not so nice guy');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 1, '..who had mustache');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 1, '..and ruled USSR during WW2');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 2, 'It serves as a beacon ');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 2, '..not becon');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 3, 'when I hear the name I think of vodka');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 4, 'not so nice colour');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 4, 'not blue');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 4, 'not grey');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 5, 'the name consists of two parts. Second part is similar to a character from Xmen. ');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 6, 'there is a guy who sings about a devil woman with the 1st name we are looking for.');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 7, 'there is a chess player with similar first name');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 8, '4th studio album of Alter Bridge');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 8, 'Boeing B17 was called with the same name:  flying….');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 9, 'two word: first is a great body of salt water, second is …Zuckeberg');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 10, 'In this war the harshest punishments were given to Ado Andrei from Mahtra Manor and Peeter Olander from Kaiu Manor, each receiving 1,000 blows through the gauntlet, along with the loss of all class privileges, 20 years of hard labor, and subsequent exile to Siberia.');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 11, 'Pisa has similar issues');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 12, 'there is a guy who makes vacuum tube amplifiers with the same first name');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 13, 'the secret order that rules the world');
+INSERT INTO pearls.hint (id, location_id, hint) VALUES (default, 13, 'there is a 1986 movie of same religious order called “the Mission” ');
+
+
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
 VALUES (default, 1, 2, null, null, 'GA', null, 0);
 INSERT INTO pearls.game (id, location_id, user_id, start_time, end_time, status, complete_date, points)
