@@ -1,9 +1,9 @@
 package ee.lostpearls.service;
 
-import ee.lostpearls.controller.game.dto.GameCompletedInfo;
-import ee.lostpearls.controller.game.dto.GamesInProgressInfo;
 import ee.lostpearls.controller.game.dto.GameCardInfo;
+import ee.lostpearls.controller.game.dto.GameCompletedInfo;
 import ee.lostpearls.controller.game.dto.GameInfo;
+import ee.lostpearls.controller.game.dto.GamesInProgressInfo;
 import ee.lostpearls.infrastructure.exception.DataNotFoundException;
 import ee.lostpearls.infrastructure.exception.ForbiddenException;
 import ee.lostpearls.infrastructure.exception.ForeignKeyNotFoundException;
@@ -48,7 +48,6 @@ public class GameService {
     private static final int HINT_PENALTY = 10;
 
 
-
     public GameInfo findGame(Integer gameId) {
         Game game = getValidGameBy(gameId);
         GameInfo gameInfo = gameMapper.toGameInfo(game);
@@ -62,6 +61,59 @@ public class GameService {
         gameRepository.save(game);
     }
 
+    public void startGame(Integer gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new PrimaryKeyNotFoundException("gameId", gameId));
+        game.setStartTime(Instant.now());
+        //.plus(3, ChronoUnit.HOURS) Sellega tuli frondis timeriga error. j2tan igaks juhuks alles.
+        game.setStatus(GameStatus.GAME_STARTED.getCode());
+        gameRepository.save(game);
+    }
+
+    public void completeGame(Integer gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new PrimaryKeyNotFoundException("gameId", gameId));
+        game.setEndTime(Instant.now());
+        game.setStatus(GameStatus.GAME_COMPLETED.getCode());
+        Instant startTime = game.getStartTime();
+        Instant endTime = game.getEndTime();
+        Integer hintsUsed = game.getHintsUsed();
+        int finalPoints = calculatePoints(startTime, endTime, hintsUsed);
+        game.setPoints(finalPoints);
+        gameRepository.save(game);
+
+    }
+
+    public GamesInProgressInfo getGamesInProgressInfo(Integer userId) {
+        List<String> activeStatuses = List.of(GameStatus.GAME_ADDED.getCode(), GameStatus.GAME_STARTED.getCode());
+        List<Game> userGames = gameRepository.findGamesByUserIdAndStatusIn(userId, activeStatuses);
+
+
+        if (userGames.size() >= 4) {
+            throw new ForbiddenException("Süsteemi viga (552)', palun võta ühendust meie teenindusega", 552);
+        }
+
+        List<GameCardInfo> gameCardInfos = gameMapper.toGameCardInfos(userGames);
+
+        addImages(gameCardInfos);
+
+        int numberOfConsumedSlots = gameCardInfos.size();
+
+        GamesInProgressInfo gamesInProgressInfo = new GamesInProgressInfo();
+        gamesInProgressInfo.setTotalSlots(SYSTEM_ALLOWED_TOTAL_SLOTS);
+        gamesInProgressInfo.setConsumedSlots(numberOfConsumedSlots);
+        gamesInProgressInfo.setAvailableSlots(SYSTEM_ALLOWED_TOTAL_SLOTS - numberOfConsumedSlots);
+        gamesInProgressInfo.setIsNextSlotAvailable(isIsNextSlotAvailable(numberOfConsumedSlots));
+        gamesInProgressInfo.setGameCards(gameCardInfos);
+
+        return gamesInProgressInfo;
+    }
+
+    public List<GameCompletedInfo> getUserCompletedGames(Integer userId) {
+        List<Game> gamesCompleted = gameRepository.findGamesBy(userId, GameStatus.GAME_COMPLETED.getCode());
+        List<GameCompletedInfo> gameCompletedInfos = gameMapper.toGameCompletedInfos(gamesCompleted);
+        return gameCompletedInfos;
+    }
 
     private Integer findRandomLocationId(Integer countyId, Integer userId) {
         List<Integer> candidateLocationIds = findCandidateLocationIds(countyId, userId);
@@ -121,28 +173,23 @@ public class GameService {
         return game;
     }
 
-    public void startGame(Integer gameId) {
-        Game game = gameRepository.findById(gameId)
-                .orElseThrow(() -> new PrimaryKeyNotFoundException("gameId", gameId));
-        game.setStartTime(Instant.now());
-        //.plus(3, ChronoUnit.HOURS) Sellega tuli frondis timeriga error. j2tan igaks juhuks alles.
-        game.setStatus(GameStatus.GAME_STARTED.getCode());
-        gameRepository.save(game);
+
+    private void addImages(List<GameCardInfo> gameCardInfos) {
+        for (GameCardInfo gameCardInfo : gameCardInfos) {
+            Integer locationId = gameCardInfo.getLocationId();
+            LocationImage findLocationImageBy = locationImageRepository.findLocationImageBy(locationId);
+            if (findLocationImageBy != null) {
+                byte[] imageData = findLocationImageBy.getImageData();
+                String locationImageData = ImageConverter.bytesToString(imageData);
+                gameCardInfo.setLocationImageData(locationImageData);
+            }
+        }
     }
 
-    public void completeGame(Integer gameId) {
-        Game game = gameRepository.findById(gameId)
-                .orElseThrow(() -> new PrimaryKeyNotFoundException("gameId", gameId));
-        game.setEndTime(Instant.now());
-        game.setStatus(GameStatus.GAME_COMPLETED.getCode());
-        Instant startTime = game.getStartTime();
-        Instant endTime = game.getEndTime();
-        Integer hintsUsed = game.getHintsUsed();
-        int finalPoints = calculatePoints(startTime, endTime, hintsUsed);
-        game.setPoints(finalPoints);
-        gameRepository.save(game);
-
+    private static boolean isIsNextSlotAvailable(int numberOfConsumedSlots) {
+        return numberOfConsumedSlots < SYSTEM_ALLOWED_TOTAL_SLOTS;
     }
+
 
     private static int calculatePoints(Instant startTime, Instant endTime, Integer hintsUsed) {
         long elapsedMilliseconds = endTime.toEpochMilli() - startTime.toEpochMilli();
@@ -164,53 +211,5 @@ public class GameService {
 
         // Ensure points don't go negative
         return Math.max(points, 0);
-    }
-
-
-    public GamesInProgressInfo getGamesInProgressInfo(Integer userId) {
-        List<String> activeStatuses = List.of(GameStatus.GAME_ADDED.getCode(), GameStatus.GAME_STARTED.getCode());
-        List<Game> userGames = gameRepository.findGamesByUserIdAndStatusIn(userId, activeStatuses);
-
-
-        if (userGames.size() >= 4) {
-            throw new ForbiddenException("Süsteemi viga (552)', palun võta ühendust meie teenindusega", 552);
-        }
-
-        List<GameCardInfo> gameCardInfos = gameMapper.toGameCardInfos(userGames);
-
-        addImages(gameCardInfos);
-
-        int numberOfConsumedSlots = gameCardInfos.size();
-
-        GamesInProgressInfo gamesInProgressInfo = new GamesInProgressInfo();
-        gamesInProgressInfo.setTotalSlots(SYSTEM_ALLOWED_TOTAL_SLOTS);
-        gamesInProgressInfo.setConsumedSlots(numberOfConsumedSlots);
-        gamesInProgressInfo.setAvailableSlots(SYSTEM_ALLOWED_TOTAL_SLOTS - numberOfConsumedSlots);
-        gamesInProgressInfo.setIsNextSlotAvailable(isIsNextSlotAvailable(numberOfConsumedSlots));
-        gamesInProgressInfo.setGameCards(gameCardInfos);
-
-        return gamesInProgressInfo;
-    }
-
-    private void addImages(List<GameCardInfo> gameCardInfos) {
-        for (GameCardInfo gameCardInfo : gameCardInfos) {
-            Integer locationId = gameCardInfo.getLocationId();
-            LocationImage findLocationImageBy = locationImageRepository.findLocationImageBy(locationId);
-            if (findLocationImageBy != null) {
-                byte[] imageData = findLocationImageBy.getImageData();
-                String locationImageData = ImageConverter.bytesToString(imageData);
-                gameCardInfo.setLocationImageData(locationImageData);
-            }
-        }
-    }
-
-    private static boolean isIsNextSlotAvailable(int numberOfConsumedSlots) {
-        return numberOfConsumedSlots< SYSTEM_ALLOWED_TOTAL_SLOTS;
-    }
-
-    public List<GameCompletedInfo> getUserCompletedGames(Integer userId) {
-        List<Game> gamesCompleted = gameRepository.findGamesBy(userId, GameStatus.GAME_COMPLETED.getCode());
-        List<GameCompletedInfo> gameCompletedInfos = gameMapper.toGameCompletedInfos(gamesCompleted);
-        return gameCompletedInfos ;
     }
 }
