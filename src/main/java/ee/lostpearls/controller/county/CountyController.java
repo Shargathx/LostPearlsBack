@@ -48,6 +48,4 @@ public class CountyController {
     public CountyInfo getCountyByLocation(@PathVariable Integer locationId) {
         return countyService.findCountyByLocationId(locationId);
     }
-
-
 }
