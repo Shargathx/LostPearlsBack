@@ -70,9 +70,6 @@ public class LocationService {
 
     public List<LocationResponse> findAllLocationsByUserId(Integer userId) {
         List<Location> locations = locationRepository.findLocationsByUserIdAndStatus(userId, LOCATION_ADDED.getCode());
-        if (locations.isEmpty()) {
-            throw new DataNotFoundException(Error.NO_LOCATIONS_FOUND.getMessage(), Error.NO_LOCATIONS_FOUND.getErrorCode());
-        }
         return locationMapper.toLocationResponses(locations);
     }
 

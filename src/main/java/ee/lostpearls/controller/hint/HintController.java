@@ -16,20 +16,20 @@ public class HintController {
     private final HintService hintService;
 
     @GetMapping("/hints")
-    @Operation(summary = "sisestatud vihjete kuvamine")
+    @Operation(summary = "Sisestatud vihjete kuvamine")
     public List<HintInfo> findAllHints(@RequestParam Integer locationId) {
         List<HintInfo> hintInfos = hintService.findAllHints(locationId);
         return hintInfos;
     }
 
     @PostMapping("/hint")
-    @Operation(summary = "vihje sisestamine")
+    @Operation(summary = "Vihje sisestamine")
     public void addHint(@RequestBody HintDto hintDto) {
         hintService.addHint(hintDto);
     }
 
     @DeleteMapping("/hint")
-    @Operation(summary = "vihje kustutamine")
+    @Operation(summary = "Vihje kustutamine")
     public void deleteHint(Integer hintId) {
         hintService.deleteHint(hintId);
     }

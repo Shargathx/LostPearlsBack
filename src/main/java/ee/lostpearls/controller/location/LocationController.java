@@ -41,12 +41,20 @@ public class LocationController {
 
 
     @GetMapping("/location/{locationId}")
+    @Operation(summary = "Leiab ühe asukoha vastavalt ID-le")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+    })
     public LocationInfo findLocation(@PathVariable Integer locationId) {
         return locationService.findLocation(locationId);
     }
 
 
     @GetMapping("/locations")
+    @Operation(summary = "Leiab minu poolt lisatud asukohad")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+    })
     public List<LocationInfo> findAllLocations() {
         return locationService.findAllLocations();
     }
@@ -56,8 +64,6 @@ public class LocationController {
     @Operation(summary = "Leiab kõik asukohad vastavalt userId-le")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "404", description = "Selline asukoht juba eksisteerib (errorCode 333)", content = @Content(schema = @Schema(implementation = ApiError.class))),
-            @ApiResponse(responseCode = "406", description = "Foreign key not found: '{fieldName}' with value: '{fieldValue} (errorCode 666)", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     public List<LocationResponse> findAllLocationsByUserId(@RequestParam Integer userId) {
         return locationService.findAllLocationsByUserId(userId);
@@ -65,7 +71,7 @@ public class LocationController {
 
 
     @PutMapping("/location/{locationId}")
-    @Operation(summary = "Lubab kasutajal asukoha infot muuta")
+    @Operation(summary = "Lubab kasutajal enda  asukoha infot muuta")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "404", description = "Selline asukoht juba eksisteerib (errorCode 333)", content = @Content(schema = @Schema(implementation = ApiError.class))),
